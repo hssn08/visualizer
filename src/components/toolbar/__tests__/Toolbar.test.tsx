@@ -72,10 +72,11 @@ describe('Toolbar', () => {
   });
 
   it('Direction button shows current layoutDirection from store', () => {
-    renderToolbar();
+    const { unmount } = renderToolbar();
     expect(screen.getByText('TB')).toBeTruthy();
+    unmount();
 
-    // Change direction in store
+    // Change direction in store and re-render
     useAppStore.setState({ layoutDirection: 'LR' as const });
     renderToolbar();
     expect(screen.getByText('LR')).toBeTruthy();
