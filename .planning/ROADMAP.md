@@ -6,7 +6,7 @@ Build a client-side visual editor for JSON call flow scripts in 7 phases. Start 
 
 ## Phases
 
-- [ ] **Phase 1: Project Scaffold & Foundation** - Vite + React + Tailwind + shadcn + React Flow + Zustand store skeleton
+- [x] **Phase 1: Project Scaffold & Foundation** - Vite + React + Tailwind + shadcn + React Flow + Zustand store skeleton
 - [ ] **Phase 2: JSON Transform Layer** - Import JSON, auto-detect steps, convert to React Flow nodes/edges, preserve all fields
 - [ ] **Phase 3: Canvas Rendering & Layout** - Custom nodes with color-coding and handles, custom edges with labels, dagre auto-layout
 - [ ] **Phase 4: Property Panel & Toolbar** - Right sidebar with structured fields, JSON fallback editor, top toolbar
@@ -29,8 +29,8 @@ Build a client-side visual editor for JSON call flow scripts in 7 phases. Start 
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Vite project setup with React, TypeScript, Tailwind v4, shadcn/ui
-- [ ] 01-02: Zustand store skeleton with React Flow integration and app shell layout
+- [x] 01-01: Vite project setup with React, TypeScript, Tailwind v4, shadcn/ui
+- [x] 01-02: Zustand store skeleton with React Flow integration and app shell layout
 
 ### Phase 2: JSON Transform Layer
 **Goal**: Import a JSON file and see it converted to React Flow nodes and edges (not yet rendered with custom components)
