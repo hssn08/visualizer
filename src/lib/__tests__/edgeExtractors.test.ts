@@ -11,6 +11,7 @@ describe('extractEdgesFromStep', () => {
       id: 'step_a->next->step_b',
       source: 'step_a',
       target: 'step_b',
+      type: 'conditional',
       sourceHandle: 'next',
       data: { edgeType: 'next' },
     });
@@ -30,6 +31,7 @@ describe('extractEdgesFromStep', () => {
       id: 'decision->condition-0->confirm',
       source: 'decision',
       target: 'confirm',
+      type: 'conditional',
       sourceHandle: 'condition-0',
       label: 'Confirmed',
       data: { edgeType: 'condition', conditionIndex: 0 },
@@ -38,6 +40,7 @@ describe('extractEdgesFromStep', () => {
       id: 'decision->condition-1->deny',
       source: 'decision',
       target: 'deny',
+      type: 'conditional',
       sourceHandle: 'condition-1',
       label: 'Denied',
       data: { edgeType: 'condition', conditionIndex: 1 },
@@ -73,6 +76,7 @@ describe('extractEdgesFromStep', () => {
       id: 'wait->timeout->retry_step',
       source: 'wait',
       target: 'retry_step',
+      type: 'conditional',
       sourceHandle: 'timeout',
       label: 'Timeout',
       data: { edgeType: 'timeout' },
@@ -88,6 +92,7 @@ describe('extractEdgesFromStep', () => {
       id: 'input->no_match->fallback',
       source: 'input',
       target: 'fallback',
+      type: 'conditional',
       sourceHandle: 'no_match',
       label: 'No Match',
       data: { edgeType: 'no_match' },
@@ -109,6 +114,7 @@ describe('extractEdgesFromStep', () => {
     expect(hangupEdge).toMatchObject({
       source: 'verify',
       target: 'farewell',
+      type: 'conditional',
       sourceHandle: 'intent-hangup_request',
       label: 'hangup_request',
       data: { edgeType: 'intent', intentName: 'hangup_request' },
@@ -118,6 +124,7 @@ describe('extractEdgesFromStep', () => {
     expect(agentEdge).toMatchObject({
       source: 'verify',
       target: 'transfer',
+      type: 'conditional',
       sourceHandle: 'intent-speak_to_agent',
       label: 'speak_to_agent',
       data: { edgeType: 'intent', intentName: 'speak_to_agent' },
@@ -184,5 +191,25 @@ describe('extractEdgesFromStep', () => {
     const step = { next: null };
     const edges = extractEdgesFromStep('end', step);
     expect(edges).toHaveLength(0);
+  });
+
+  it('sets type "conditional" on every edge for custom edge rendering', () => {
+    const step = {
+      next: 'next_step',
+      timeout_next: 'timeout_step',
+      no_match_next: 'nomatch_step',
+      conditions: [
+        { condition_description: 'Option A', next: 'opt_a' },
+      ],
+      intent_detector_routes: {
+        help: 'help_step',
+      },
+    };
+    const edges = extractEdgesFromStep('all_types', step);
+
+    expect(edges).toHaveLength(5);
+    for (const edge of edges) {
+      expect(edge.type).toBe('conditional');
+    }
   });
 });
