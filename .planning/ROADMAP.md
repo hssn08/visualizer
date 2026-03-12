@@ -81,9 +81,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: Property panel shell with structured fields and connection editors
-- [ ] 04-02: json-edit-react integration for full JSON fallback editing
-- [ ] 04-03: Top toolbar with action buttons wired to store
+- [ ] 04-01-PLAN.md — Store extension (updateNodeData, updateEdgeTarget), PropertyPanel with structured fields and connection editors
+- [ ] 04-02-PLAN.md — json-edit-react integration for full JSON fallback editing in property panel
+- [ ] 04-03-PLAN.md — Full toolbar with Export, Auto Layout, Direction, Fit View, JSON Preview toggle
 
 ### Phase 5: Graph Editing & Undo/Redo
 **Goal**: Full editing capabilities — add, delete, connect nodes; undo/redo all operations
