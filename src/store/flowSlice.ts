@@ -29,4 +29,31 @@ export const createFlowSlice: StateCreator<AppState, [], [], FlowSlice> = (set, 
     const { nodes: layouted } = getLayoutedElements(nodes, edges, layoutDirection);
     set({ nodes: layouted });
   },
+  updateNodeData: (nodeId, patch) => {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id !== nodeId) return node;
+        const step = (node.data as { step: Record<string, unknown> }).step;
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            step: { ...step, ...patch },
+          },
+        };
+      }),
+    });
+  },
+  updateEdgeTarget: (edgeId, newTarget) => {
+    set({
+      edges: get().edges.map((edge) => {
+        if (edge.id !== edgeId) return edge;
+        return {
+          ...edge,
+          target: newTarget,
+          id: edge.id.replace(/->([^>]+)$/, '->' + newTarget),
+        };
+      }),
+    });
+  },
 });

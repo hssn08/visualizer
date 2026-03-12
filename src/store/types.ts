@@ -15,11 +15,15 @@ export interface FlowSlice {
   importJson: (raw: Record<string, unknown>) => void;
   setLayoutDirection: (dir: 'TB' | 'LR') => void;
   autoLayout: () => void;
+  updateNodeData: (nodeId: string, patch: Record<string, unknown>) => void;
+  updateEdgeTarget: (edgeId: string, newTarget: string) => void;
 }
 
 export interface UiSlice {
   selectedNodeId: string | null;
   setSelectedNodeId: (id: string | null) => void;
+  jsonPreviewOpen: boolean;
+  toggleJsonPreview: () => void;
 }
 
 export type AppState = FlowSlice & UiSlice;
