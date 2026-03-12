@@ -1,6 +1,8 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '@/App';
+import { useAppStore } from '@/store';
+import sampleFlow from '@/lib/__tests__/fixtures/sampleFlow.json';
 
 beforeAll(() => {
   // jsdom does not implement ResizeObserver which React Flow requires
@@ -46,5 +48,33 @@ describe('App', () => {
     expect(screen.getByText('Layout')).toBeTruthy();
     expect(screen.getByText('Fit')).toBeTruthy();
     expect(screen.getByText('JSON')).toBeTruthy();
+  });
+
+  describe('PropertyPanel integration', () => {
+    beforeEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+      });
+    });
+
+    it('does not render PropertyPanel when selectedNodeId is null', () => {
+      const { container } = render(<App />);
+      const panel = container.querySelector('[data-testid="property-panel"]');
+      expect(panel).toBeNull();
+    });
+
+    it('renders PropertyPanel when a node is selected', () => {
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      useAppStore.getState().setSelectedNodeId('greeting');
+
+      const { container } = render(<App />);
+      const panel = container.querySelector('[data-testid="property-panel"]');
+      expect(panel).toBeTruthy();
+    });
   });
 });
