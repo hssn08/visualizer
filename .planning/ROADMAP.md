@@ -45,8 +45,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: jsonToFlow converter — parse JSON, detect steps, generate nodes and edges
-- [ ] 02-02: flowToJson converter and file import wiring — reverse transform and file picker UI
+- [ ] 02-01-PLAN.md — jsonToFlow forward transform: types, step detection, edge extraction, orchestrator
+- [ ] 02-02-PLAN.md — flowToJson reverse transform, store extension with importJson, ImportButton UI
 
 ### Phase 3: Canvas Rendering & Layout
 **Goal**: Imported flow renders as a beautiful, color-coded node graph with labeled edges and auto-layout
@@ -111,7 +111,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Export button downloads a .json file with all original fields preserved
   2. Connection fields in exported JSON reflect current edge state
-  3. Round-trip test: import → edit → export → re-import produces consistent result
+  3. Round-trip test: import -> edit -> export -> re-import produces consistent result
   4. Live JSON preview panel toggles open/closed showing current state
   5. Medicare test flow loads by default on first visit (no import needed)
 **Plans**: 2 plans
@@ -140,8 +140,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Project Scaffold & Foundation | 0/2 | Not started | - |
-| 2. JSON Transform Layer | 0/2 | Not started | - |
+| 1. Project Scaffold & Foundation | 2/2 | Complete | 2026-03-12 |
+| 2. JSON Transform Layer | 0/2 | Planning | - |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
 | 4. Property Panel & Toolbar | 0/3 | Not started | - |
 | 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
