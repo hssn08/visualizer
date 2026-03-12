@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **IMP-01**: User can import a JSON file via file picker
 - [x] **IMP-02**: App auto-detects the step container in arbitrary JSON (objects with `next`, `conditions`, or similar linking fields)
 - [ ] **IMP-03**: Default test flow (Medicare call flow) loads on first visit
-- [ ] **IMP-04**: App preserves all original JSON fields including ones not visually represented (voice_settings, max_clarification_retries, etc.)
+- [x] **IMP-04**: App preserves all original JSON fields including ones not visually represented (voice_settings, max_clarification_retries, etc.)
 
 ### Canvas & Navigation
 
@@ -123,7 +123,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | IMP-01 | Phase 2 | Complete |
 | IMP-02 | Phase 2 | Complete |
 | IMP-03 | Phase 6 | Pending |
-| IMP-04 | Phase 2 | Pending |
+| IMP-04 | Phase 2 | Complete |
 | NAV-01 | Phase 3 | Pending |
 | NAV-02 | Phase 3 | Pending |
 | NAV-03 | Phase 3 | Pending |

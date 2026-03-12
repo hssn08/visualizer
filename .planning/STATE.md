@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Plan 1 of 2 complete
-status: unknown
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-12T12:19:42.859Z"
+current_plan: Plan 2 of 2 complete
+status: phase-complete
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-12T12:26:00Z"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 02-json-transform-layer (IN PROGRESS)
-**Current Plan:** Plan 1 of 2 complete
-**Last Action:** Completed 02-01-PLAN.md (jsonToFlow forward transform)
+**Phase:** 02-json-transform-layer (COMPLETE)
+**Current Plan:** Plan 2 of 2 complete
+**Last Action:** Completed 02-02-PLAN.md (flowToJson reverse transform, import pipeline)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -33,11 +33,16 @@ progress:
 - Zustand store with FlowSlice + UiSlice + Zundo temporal middleware (undo/redo ready)
 - FlowCanvas component rendering ReactFlow with Background, Controls, MiniMap
 - App wrapped in ReactFlowProvider with viewport-filling layout
-- 48 tests passing (37 new lib unit + 8 store unit + 3 App smoke)
+- 72 tests passing (37 lib detect/edge/jsonToFlow + 18 flowToJson/roundTrip + 13 store + 4 App)
 - jsonToFlow pure transform: raw JSON -> { nodes, edges, metadata }
+- flowToJson reverse transform: nodes + edges + metadata -> original JSON structure
+- Lossless round-trip verified: jsonToFlow -> flowToJson preserves all fields
 - detectStepsContainer heuristic identifies steps via linking field scoring
 - extractEdgesFromStep handles 5 edge types with unique IDs
 - Full step data preserved in node.data.step for lossless round-trip
+- Store extended with importJson, setNodes, setEdges, rawJson, metadata
+- ImportButton in toolbar enables JSON file import from UI
+- App layout: toolbar bar above flex canvas area
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -61,6 +66,9 @@ progress:
 | Edge ID: stepKey->type->target | 2026-03-12 | Guarantees uniqueness across all edge types to same target |
 | Grid layout until Phase 3 dagre | 2026-03-12 | Simple 4-col grid is sufficient placeholder for transform testing |
 | Min 2 steps for detection | 2026-03-12 | Avoids false positives on config objects with linking-like fields |
+| delete for absent connections | 2026-03-12 | JSON.stringify produces clean output without null/undefined fields |
+| Shallow clone step in flowToJson | 2026-03-12 | Prevents mutation of live store state during export |
+| rawJson/metadata out of undo | 2026-03-12 | Import metadata is reference data, not user-editable undo state |
 
 ## Blockers
 
@@ -73,12 +81,13 @@ None
 | 01-01 | 5min | 2 | 14 |
 | 01-02 | 2min | 2 | 9 |
 | 02-01 | 4min | 2 | 8 |
+| 02-02 | 4min | 2 | 9 |
 
 ## Last Session
 
-- **Stopped at:** Completed 02-01-PLAN.md
-- **Timestamp:** 2026-03-12T12:17:38Z
+- **Stopped at:** Completed 02-02-PLAN.md
+- **Timestamp:** 2026-03-12T12:26:00Z
 
 ## Next Step
 
-Execute 02-02-PLAN.md: flowToJson reverse transform, store extension with importJson, ImportButton UI.
+Phase 02 complete. Ready for Phase 03: Canvas Rendering (dagre auto-layout, custom node components, edge styling).
