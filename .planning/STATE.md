@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
+current_plan: Plan 1 of 2 complete
 status: unknown
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-03-12T11:54:32.236Z"
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-12T12:19:42.859Z"
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 01-project-scaffold-foundation (COMPLETE)
-**Current Plan:** Not started
-**Last Action:** Completed 01-02-PLAN.md (Zustand Store & React Flow Canvas)
+**Phase:** 02-json-transform-layer (IN PROGRESS)
+**Current Plan:** Plan 1 of 2 complete
+**Last Action:** Completed 02-01-PLAN.md (jsonToFlow forward transform)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -33,7 +33,11 @@ progress:
 - Zustand store with FlowSlice + UiSlice + Zundo temporal middleware (undo/redo ready)
 - FlowCanvas component rendering ReactFlow with Background, Controls, MiniMap
 - App wrapped in ReactFlowProvider with viewport-filling layout
-- 11 tests passing (8 store unit + 3 App smoke)
+- 48 tests passing (37 new lib unit + 8 store unit + 3 App smoke)
+- jsonToFlow pure transform: raw JSON -> { nodes, edges, metadata }
+- detectStepsContainer heuristic identifies steps via linking field scoring
+- extractEdgesFromStep handles 5 edge types with unique IDs
+- Full step data preserved in node.data.step for lossless round-trip
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -52,6 +56,11 @@ progress:
 | Zundo partialize: nodes+edges only | 2026-03-12 | UI state (selectedNodeId) should not create undo history |
 | Zundo limit 100 steps | 2026-03-12 | Sufficient for editing sessions without excessive memory |
 | useShallow for FlowCanvas selector | 2026-03-12 | Prevents re-renders when unrelated store state changes |
+| Step key = node ID | 2026-03-12 | Natural edge source/target references without mapping table |
+| Full step in node.data.step | 2026-03-12 | IMP-04 field preservation for lossless round-trip |
+| Edge ID: stepKey->type->target | 2026-03-12 | Guarantees uniqueness across all edge types to same target |
+| Grid layout until Phase 3 dagre | 2026-03-12 | Simple 4-col grid is sufficient placeholder for transform testing |
+| Min 2 steps for detection | 2026-03-12 | Avoids false positives on config objects with linking-like fields |
 
 ## Blockers
 
@@ -63,12 +72,13 @@ None
 |-----------|----------|-------|-------|
 | 01-01 | 5min | 2 | 14 |
 | 01-02 | 2min | 2 | 9 |
+| 02-01 | 4min | 2 | 8 |
 
 ## Last Session
 
-- **Stopped at:** Completed 01-02-PLAN.md
-- **Timestamp:** 2026-03-12T11:49:04Z
+- **Stopped at:** Completed 02-01-PLAN.md
+- **Timestamp:** 2026-03-12T12:17:38Z
 
 ## Next Step
 
-Phase 01 complete. Begin Phase 02 (Core Canvas & State).
+Execute 02-02-PLAN.md: flowToJson reverse transform, store extension with importJson, ImportButton UI.

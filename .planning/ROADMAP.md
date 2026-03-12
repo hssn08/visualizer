@@ -45,7 +45,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — jsonToFlow forward transform: types, step detection, edge extraction, orchestrator
+- [x] 02-01-PLAN.md — jsonToFlow forward transform: types, step detection, edge extraction, orchestrator
 - [ ] 02-02-PLAN.md — flowToJson reverse transform, store extension with importJson, ImportButton UI
 
 ### Phase 3: Canvas Rendering & Layout
@@ -141,7 +141,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Scaffold & Foundation | 2/2 | Complete | 2026-03-12 |
-| 2. JSON Transform Layer | 0/2 | Planning | - |
+| 2. JSON Transform Layer | 1/2 | In Progress | - |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
 | 4. Property Panel & Toolbar | 0/3 | Not started | - |
 | 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
