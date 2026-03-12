@@ -49,7 +49,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **EDIT-03**: Panel shows connections section with dropdowns to change edge targets
 - [ ] **EDIT-04**: Panel includes full JSON editor (json-edit-react) for all node data as fallback
 - [ ] **EDIT-05**: Property changes update the store in real-time
-- [ ] **EDIT-06**: Clicking canvas background deselects node and closes panel
+- [x] **EDIT-06**: Clicking canvas background deselects node and closes panel
 
 ### Graph Editing
 
@@ -77,7 +77,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### UI & Polish
 
 - [ ] **UI-01**: Dark mode support via shadcn theme
-- [ ] **UI-02**: Top toolbar with Import, Export, Auto Layout, Layout Direction, Zoom to Fit, JSON Preview toggle
+- [x] **UI-02**: Top toolbar with Import, Export, Auto Layout, Layout Direction, Zoom to Fit, JSON Preview toggle
 - [ ] **UI-03**: Keyboard shortcut: Delete/Backspace removes selected node
 - [ ] **UI-04**: Keyboard shortcut: Ctrl+Z undo, Ctrl+Shift+Z redo
 - [ ] **UI-05**: Property panel and node palette are collapsible
@@ -148,7 +148,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-03 | Phase 4 | Pending |
 | EDIT-04 | Phase 4 | Pending |
 | EDIT-05 | Phase 4 | Pending |
-| EDIT-06 | Phase 4 | Pending |
+| EDIT-06 | Phase 4 | Complete |
 | GRAPH-01 | Phase 5 | Pending |
 | GRAPH-02 | Phase 5 | Pending |
 | GRAPH-03 | Phase 5 | Pending |
@@ -164,7 +164,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-03 | Phase 6 | Pending |
 | EXP-04 | Phase 6 | Pending |
 | UI-01 | Phase 7 | Pending |
-| UI-02 | Phase 4 | Pending |
+| UI-02 | Phase 4 | Complete |
 | UI-03 | Phase 5 | Pending |
 | UI-04 | Phase 5 | Pending |
 | UI-05 | Phase 7 | Pending |

@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-12T14:14:32.902Z"
+current_plan: 04-03
+status: in-progress
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-03-12T14:51:17Z"
 progress:
   total_phases: 7
   completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 17
+  completed_plans: 8
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 03-canvas-rendering-layout (IN PROGRESS)
-**Current Plan:** Not started
-**Last Action:** Completed 03-02-PLAN.md (custom edge styling with 5 visual variants)
+**Phase:** 04-property-panel-toolbar (IN PROGRESS)
+**Current Plan:** 04-03 complete
+**Last Action:** Completed 04-03-PLAN.md (full toolbar with export, layout, fit, JSON preview)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -44,7 +44,11 @@ progress:
 - Full step data preserved in node.data.step for lossless round-trip
 - Store extended with importJson, setNodes, setEdges, rawJson, metadata
 - ImportButton in toolbar enables JSON file import from UI
-- App layout: toolbar bar above flex canvas area
+- App layout: full Toolbar component above flex canvas area
+- Full toolbar: Import, Export, Auto Layout, Direction, Fit View, JSON Preview buttons
+- ExportButton: flowToJson + Blob download, disabled when no metadata
+- UiSlice extended with jsonPreviewOpen boolean and toggleJsonPreview action
+- 152 tests passing
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -74,6 +78,9 @@ progress:
 | EDGE_STYLES/getEdgeStyle as testable units | 2026-03-12 | jsdom lacks SVG context for full React Flow edge rendering tests |
 | Module-level edgeTypes registry | 2026-03-12 | Prevents React Flow re-mount warning from object recreation |
 | LABEL_STYLES as Tailwind class strings | 2026-03-12 | Clean conditional application of badge colors per edge type |
+| Braces icon for JSON Preview | 2026-03-12 | Clear visual association with JSON/code content |
+| Variant switch for JSON Preview active state | 2026-03-12 | default vs outline variant clearly indicates toggle state |
+| Export filename flow.json | 2026-03-12 | Sufficient for v1, users rename as needed |
 
 ## Blockers
 
@@ -88,12 +95,13 @@ None
 | 02-01 | 4min | 2 | 8 |
 | 02-02 | 4min | 2 | 9 |
 | 03-02 | 3min | 2 | 5 |
+| 04-03 | 3min | 2 | 7 |
 
 ## Last Session
 
-- **Stopped at:** Completed 03-02-PLAN.md
-- **Timestamp:** 2026-03-12T12:59:52Z
+- **Stopped at:** Completed 04-03-PLAN.md
+- **Timestamp:** 2026-03-12T14:51:17Z
 
 ## Next Step
 
-Phase 03 in progress. Plan 03-02 (custom edge styling) complete. Continue with remaining Phase 03 plans (custom node components, dagre auto-layout).
+Phase 04 in progress. Plan 04-03 (toolbar) complete. Continue with remaining Phase 04 plans (04-01 property panel, 04-02 property editing).
