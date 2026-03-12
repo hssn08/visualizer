@@ -9,7 +9,7 @@ Build a client-side visual editor for JSON call flow scripts in 7 phases. Start 
 - [x] **Phase 1: Project Scaffold & Foundation** - Vite + React + Tailwind + shadcn + React Flow + Zustand store skeleton
 - [x] **Phase 2: JSON Transform Layer** - Import JSON, auto-detect steps, convert to React Flow nodes/edges, preserve all fields
 - [ ] **Phase 3: Canvas Rendering & Layout** - Custom nodes with color-coding and handles, custom edges with labels, dagre auto-layout
-- [ ] **Phase 4: Property Panel & Toolbar** - Right sidebar with structured fields, JSON fallback editor, top toolbar
+- [x] **Phase 4: Property Panel & Toolbar** - Right sidebar with structured fields, JSON fallback editor, top toolbar
 - [ ] **Phase 5: Graph Editing & Undo/Redo** - Node palette, add/delete nodes, draw/delete edges, Zundo undo/redo, keyboard shortcuts
 - [ ] **Phase 6: Export & Default Flow** - Lossless JSON export, live JSON preview, default Medicare test flow on first visit
 - [ ] **Phase 7: Dark Mode & Polish** - Dark mode, collapsible panels, responsive layout, final integration testing
@@ -82,7 +82,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Store extension (updateNodeData, updateEdgeTarget), PropertyPanel with structured fields and connection editors
-- [ ] 04-02-PLAN.md — json-edit-react integration for full JSON fallback editing in property panel
+- [x] 04-02-PLAN.md — json-edit-react integration for full JSON fallback editing in property panel
 - [x] 04-03-PLAN.md — Full toolbar with Export, Auto Layout, Direction, Fit View, JSON Preview toggle
 
 ### Phase 5: Graph Editing & Undo/Redo
@@ -143,7 +143,7 @@ Plans:
 | 1. Project Scaffold & Foundation | 2/2 | Complete | 2026-03-12 |
 | 2. JSON Transform Layer | 2/2 | Complete | 2026-03-12 |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
-| 4. Property Panel & Toolbar | 2/3 | In Progress | - |
+| 4. Property Panel & Toolbar | 3/3 | Complete | 2026-03-12 |
 | 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
 | 6. Export & Default Flow | 0/2 | Not started | - |
 | 7. Dark Mode & Polish | 0/2 | Not started | - |

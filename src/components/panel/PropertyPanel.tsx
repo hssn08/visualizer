@@ -3,6 +3,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { StructuredFields } from './StructuredFields';
 import { ConnectionEditor } from './ConnectionEditor';
+import { JsonFallbackEditor } from './JsonFallbackEditor';
 import { X } from 'lucide-react';
 
 interface PropertyPanelProps {
@@ -57,6 +58,17 @@ export function PropertyPanel({ nodeId }: PropertyPanelProps) {
               Connections
             </h3>
             <ConnectionEditor nodeId={nodeId} />
+          </section>
+
+          <Separator />
+
+          {/* JSON Editor section */}
+          <section>
+            <h3 className="text-sm font-semibold mb-1">JSON Editor</h3>
+            <p className="text-xs text-muted-foreground mb-2">
+              Edit all properties
+            </p>
+            <JsonFallbackEditor nodeId={nodeId} step={step} />
           </section>
         </div>
       </ScrollArea>

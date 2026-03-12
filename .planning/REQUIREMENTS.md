@@ -47,7 +47,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **EDIT-01**: Clicking a node opens a right sidebar property panel
 - [x] **EDIT-02**: Panel shows structured fields for common properties (description, text, audio_file, wait_for_response, pause_duration, timeout)
 - [x] **EDIT-03**: Panel shows connections section with dropdowns to change edge targets
-- [ ] **EDIT-04**: Panel includes full JSON editor (json-edit-react) for all node data as fallback
+- [x] **EDIT-04**: Panel includes full JSON editor (json-edit-react) for all node data as fallback
 - [x] **EDIT-05**: Property changes update the store in real-time
 - [x] **EDIT-06**: Clicking canvas background deselects node and closes panel
 
@@ -146,7 +146,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-01 | Phase 4 | Complete |
 | EDIT-02 | Phase 4 | Complete |
 | EDIT-03 | Phase 4 | Complete |
-| EDIT-04 | Phase 4 | Pending |
+| EDIT-04 | Phase 4 | Complete |
 | EDIT-05 | Phase 4 | Complete |
 | EDIT-06 | Phase 4 | Complete |
 | GRAPH-01 | Phase 5 | Pending |

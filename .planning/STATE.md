@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 04-01
+current_plan: 04-02
 status: in-progress
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-12T14:53:35Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-12T15:45:06Z"
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 17
-  completed_plans: 9
+  completed_plans: 10
 ---
 
 # Project State: Flow Editor
@@ -18,8 +18,8 @@ progress:
 ## Current Status
 
 **Phase:** 04-property-panel-toolbar (IN PROGRESS)
-**Current Plan:** 04-01 complete
-**Last Action:** Completed 04-01-PLAN.md (property panel foundation with structured fields and connection editor)
+**Current Plan:** 04-02 complete
+**Last Action:** Completed 04-02-PLAN.md (json-edit-react fallback editor in PropertyPanel)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -54,7 +54,9 @@ progress:
 - ConnectionEditor: outgoing edge list with Select dropdowns to re-target edges
 - shadcn components installed: Input, Textarea, Label, Select, Switch, Separator, ScrollArea
 - Panel wired into App flex layout, conditional on selectedNodeId
-- 165 tests passing
+- JsonFallbackEditor: json-edit-react wrapper in PropertyPanel for full step data editing
+- PropertyPanel layout: Properties > Connections > JSON Editor (three sections with separators)
+- 167 tests passing (2 new JsonFallbackEditor tests with mocked json-edit-react)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -90,6 +92,9 @@ progress:
 | Immediate store updates on field change | 2026-03-12 | No local form state; canvas reflects edits in real-time |
 | ALWAYS_SHOWN set for description/text | 2026-03-12 | Common fields shown even when absent from step data |
 | Null guard on Select onValueChange | 2026-03-12 | base-ui Select can pass null; guard prevents invalid updateEdgeTarget |
+| Default json-edit-react styling | 2026-03-12 | Dark mode theming deferred to Phase 7 polish |
+| Mock json-edit-react in tests | 2026-03-12 | Complex internal rendering not suitable for jsdom |
+| Pass full step object to JsonEditor | 2026-03-12 | Library manages internal state; setData callback syncs to store |
 
 ## Blockers
 
@@ -106,12 +111,13 @@ None
 | 03-02 | 3min | 2 | 5 |
 | 04-03 | 3min | 2 | 7 |
 | 04-01 | 5min | 2 | 21 |
+| 04-02 | 3min | 2 | 3 |
 
 ## Last Session
 
-- **Stopped at:** Completed 04-01-PLAN.md
-- **Timestamp:** 2026-03-12T14:53:35Z
+- **Stopped at:** Completed 04-02-PLAN.md
+- **Timestamp:** 2026-03-12T15:45:06Z
 
 ## Next Step
 
-Phase 04 in progress. Plans 04-01 (property panel) and 04-03 (toolbar) complete. Continue with 04-02 (json-edit-react integration).
+Phase 04 complete. All three plans (04-01 property panel, 04-02 json editor, 04-03 toolbar) done. Ready for Phase 05 (sidebar tree).
