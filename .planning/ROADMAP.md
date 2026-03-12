@@ -100,9 +100,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: Node palette sidebar with drag-and-drop creation
-- [ ] 05-02: Edge creation/deletion synced with step data, node deletion with confirmation
-- [ ] 05-03: Zundo undo/redo integration with throttled drag tracking and keyboard shortcuts
+- [ ] 05-01-PLAN.md — Node palette sidebar with drag-and-drop node creation (GRAPH-01, GRAPH-02)
+- [ ] 05-02-PLAN.md — Edge creation/deletion synced with step data, node deletion with AlertDialog confirmation (GRAPH-03, GRAPH-04, GRAPH-05, GRAPH-06, GRAPH-07, UI-03)
+- [ ] 05-03-PLAN.md — Zundo undo/redo keyboard shortcuts and drag throttle via pause/resume (UNDO-01, UNDO-02, UNDO-03, UI-04)
 
 ### Phase 6: Export & Default Flow
 **Goal**: Complete the import-edit-export loop; app is immediately usable on first visit
