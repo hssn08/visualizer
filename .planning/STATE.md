@@ -2,9 +2,9 @@
 
 ## Current Status
 
-**Phase:** 01-project-scaffold-foundation
-**Current Plan:** 2 of 2
-**Last Action:** Completed 01-01-PLAN.md (Project Scaffold)
+**Phase:** 01-project-scaffold-foundation (COMPLETE)
+**Current Plan:** 2 of 2 (all complete)
+**Last Action:** Completed 01-02-PLAN.md (Zustand Store & React Flow Canvas)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -15,6 +15,10 @@
 - React Flow CSS imported before Tailwind (prevents Preflight style reset)
 - Vitest configured with jsdom environment
 - Node.js upgraded to v20 (required by Tailwind v4 oxide)
+- Zustand store with FlowSlice + UiSlice + Zundo temporal middleware (undo/redo ready)
+- FlowCanvas component rendering ReactFlow with Background, Controls, MiniMap
+- App wrapped in ReactFlowProvider with viewport-filling layout
+- 11 tests passing (8 store unit + 3 App smoke)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -30,6 +34,9 @@
 | Node.js v20 upgrade | 2026-03-12 | Tailwind v4 oxide binary requires Node >= 20 |
 | shadcn v4 base-nova style | 2026-03-12 | Auto-selected by shadcn init; uses @base-ui/react primitives |
 | React Flow CSS before Tailwind | 2026-03-12 | Prevents Preflight from resetting React Flow base styles |
+| Zundo partialize: nodes+edges only | 2026-03-12 | UI state (selectedNodeId) should not create undo history |
+| Zundo limit 100 steps | 2026-03-12 | Sufficient for editing sessions without excessive memory |
+| useShallow for FlowCanvas selector | 2026-03-12 | Prevents re-renders when unrelated store state changes |
 
 ## Blockers
 
@@ -40,12 +47,13 @@ None
 | Phase-Plan | Duration | Tasks | Files |
 |-----------|----------|-------|-------|
 | 01-01 | 5min | 2 | 14 |
+| 01-02 | 2min | 2 | 9 |
 
 ## Last Session
 
-- **Stopped at:** Completed 01-01-PLAN.md
-- **Timestamp:** 2026-03-12T11:44:49Z
+- **Stopped at:** Completed 01-02-PLAN.md
+- **Timestamp:** 2026-03-12T11:49:04Z
 
 ## Next Step
 
-Execute 01-02-PLAN.md (Zustand store and React Flow canvas).
+Phase 01 complete. Begin Phase 02 (Core Canvas & State).
