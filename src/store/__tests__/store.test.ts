@@ -156,4 +156,101 @@ describe('Zustand Store', () => {
     // With 9 nodes in a tree, there should be multiple unique Y values
     expect(uniqueYs.size).toBeGreaterThan(1);
   });
+
+  describe('updateNodeData', () => {
+    it('merges patch into node.data.step for matching node', () => {
+      const { importJson } = useAppStore.getState();
+      importJson(sampleFlow as Record<string, unknown>);
+
+      const { updateNodeData } = useAppStore.getState();
+      updateNodeData('greeting', { description: 'Updated greeting' });
+
+      const node = useAppStore.getState().nodes.find((n) => n.id === 'greeting');
+      expect(node).toBeDefined();
+      const step = (node!.data as { step: Record<string, unknown> }).step;
+      expect(step.description).toBe('Updated greeting');
+      // Original fields should still be present
+      expect(step.text).toBe('Hello, thank you for calling Medicare Enrollment Services.');
+    });
+
+    it('leaves other nodes unchanged', () => {
+      const { importJson } = useAppStore.getState();
+      importJson(sampleFlow as Record<string, unknown>);
+
+      const farewellBefore = useAppStore.getState().nodes.find((n) => n.id === 'farewell');
+      const stepBefore = (farewellBefore!.data as { step: Record<string, unknown> }).step;
+
+      const { updateNodeData } = useAppStore.getState();
+      updateNodeData('greeting', { description: 'Updated greeting' });
+
+      const farewellAfter = useAppStore.getState().nodes.find((n) => n.id === 'farewell');
+      const stepAfter = (farewellAfter!.data as { step: Record<string, unknown> }).step;
+      expect(stepAfter.description).toBe(stepBefore.description);
+    });
+
+    it('is a no-op for nonexistent nodeId (no crash)', () => {
+      const { importJson } = useAppStore.getState();
+      importJson(sampleFlow as Record<string, unknown>);
+
+      const nodesBefore = useAppStore.getState().nodes;
+
+      const { updateNodeData } = useAppStore.getState();
+      expect(() => updateNodeData('nonexistent', { description: 'test' })).not.toThrow();
+
+      // Nodes should remain unchanged
+      const nodesAfter = useAppStore.getState().nodes;
+      expect(nodesAfter.length).toBe(nodesBefore.length);
+    });
+  });
+
+  describe('updateEdgeTarget', () => {
+    it('changes edge.target and regenerates edge.id', () => {
+      const { importJson } = useAppStore.getState();
+      importJson(sampleFlow as Record<string, unknown>);
+
+      // Find an edge with a known pattern, e.g., greeting->next->verify_identity
+      const edge = useAppStore.getState().edges.find(
+        (e) => e.source === 'greeting' && e.data?.edgeType === 'next'
+      );
+      expect(edge).toBeDefined();
+
+      const { updateEdgeTarget } = useAppStore.getState();
+      updateEdgeTarget(edge!.id, 'farewell');
+
+      const updatedEdge = useAppStore.getState().edges.find(
+        (e) => e.source === 'greeting' && e.data?.edgeType === 'next'
+      );
+      expect(updatedEdge).toBeDefined();
+      expect(updatedEdge!.target).toBe('farewell');
+      // ID should contain the new target
+      expect(updatedEdge!.id).toContain('farewell');
+    });
+
+    it('leaves other edges unchanged', () => {
+      const { importJson } = useAppStore.getState();
+      importJson(sampleFlow as Record<string, unknown>);
+
+      const allEdges = useAppStore.getState().edges;
+      // Find a farewell-related or other edge that won't be affected
+      const otherEdge = allEdges.find(
+        (e) => e.source === 'plan_options' && e.data?.edgeType === 'next'
+      );
+      expect(otherEdge).toBeDefined();
+      const otherEdgeIdBefore = otherEdge!.id;
+      const otherEdgeTargetBefore = otherEdge!.target;
+
+      // Update a different edge
+      const greetingEdge = allEdges.find(
+        (e) => e.source === 'greeting' && e.data?.edgeType === 'next'
+      );
+      const { updateEdgeTarget } = useAppStore.getState();
+      updateEdgeTarget(greetingEdge!.id, 'farewell');
+
+      const otherEdgeAfter = useAppStore.getState().edges.find(
+        (e) => e.id === otherEdgeIdBefore
+      );
+      expect(otherEdgeAfter).toBeDefined();
+      expect(otherEdgeAfter!.target).toBe(otherEdgeTargetBefore);
+    });
+  });
 });
