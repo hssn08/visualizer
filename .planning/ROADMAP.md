@@ -7,7 +7,7 @@ Build a client-side visual editor for JSON call flow scripts in 7 phases. Start 
 ## Phases
 
 - [x] **Phase 1: Project Scaffold & Foundation** - Vite + React + Tailwind + shadcn + React Flow + Zustand store skeleton
-- [ ] **Phase 2: JSON Transform Layer** - Import JSON, auto-detect steps, convert to React Flow nodes/edges, preserve all fields
+- [x] **Phase 2: JSON Transform Layer** - Import JSON, auto-detect steps, convert to React Flow nodes/edges, preserve all fields
 - [ ] **Phase 3: Canvas Rendering & Layout** - Custom nodes with color-coding and handles, custom edges with labels, dagre auto-layout
 - [ ] **Phase 4: Property Panel & Toolbar** - Right sidebar with structured fields, JSON fallback editor, top toolbar
 - [ ] **Phase 5: Graph Editing & Undo/Redo** - Node palette, add/delete nodes, draw/delete edges, Zundo undo/redo, keyboard shortcuts
@@ -46,7 +46,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — jsonToFlow forward transform: types, step detection, edge extraction, orchestrator
-- [ ] 02-02-PLAN.md — flowToJson reverse transform, store extension with importJson, ImportButton UI
+- [x] 02-02-PLAN.md — flowToJson reverse transform, store extension with importJson, ImportButton UI
 
 ### Phase 3: Canvas Rendering & Layout
 **Goal**: Imported flow renders as a beautiful, color-coded node graph with labeled edges and auto-layout
@@ -62,9 +62,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Custom StepNode component with color-coding, badges, and multiple output handles
-- [ ] 03-02: Custom ConditionalEdge component with label badges and distinct styles
-- [ ] 03-03: Dagre auto-layout integration with TB/LR toggle and minimap/controls
+- [ ] 03-01-PLAN.md — Custom StepNode component with color-coding, badges, and multiple output handles
+- [ ] 03-02-PLAN.md — Custom ConditionalEdge component with label badges and distinct styles
+- [ ] 03-03-PLAN.md — Dagre auto-layout, store extension, FlowCanvas wiring with custom types and minimap
 
 ### Phase 4: Property Panel & Toolbar
 **Goal**: Click any node to edit its properties in a sidebar panel, with structured fields and a JSON fallback editor
@@ -141,7 +141,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Scaffold & Foundation | 2/2 | Complete | 2026-03-12 |
-| 2. JSON Transform Layer | 1/2 | In Progress | - |
+| 2. JSON Transform Layer | 2/2 | Complete | 2026-03-12 |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
 | 4. Property Panel & Toolbar | 0/3 | Not started | - |
 | 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
