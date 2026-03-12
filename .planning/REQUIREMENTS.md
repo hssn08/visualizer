@@ -35,12 +35,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Edge Rendering
 
-- [ ] **EDGE-01**: Normal "next" edges render as solid lines
-- [ ] **EDGE-02**: Condition edges render as solid lines with colored label badges
-- [ ] **EDGE-03**: Timeout edges render as dashed orange lines
-- [ ] **EDGE-04**: No match/fallback edges render as dashed gray lines
-- [ ] **EDGE-05**: Intent route edges (DNC, not interested, obscenity) render as dotted red lines
-- [ ] **EDGE-06**: All edges display their label text
+- [x] **EDGE-01**: Normal "next" edges render as solid lines
+- [x] **EDGE-02**: Condition edges render as solid lines with colored label badges
+- [x] **EDGE-03**: Timeout edges render as dashed orange lines
+- [x] **EDGE-04**: No match/fallback edges render as dashed gray lines
+- [x] **EDGE-05**: Intent route edges (DNC, not interested, obscenity) render as dotted red lines
+- [x] **EDGE-06**: All edges display their label text
 
 ### Property Editing
 
@@ -137,12 +137,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NODE-05 | Phase 3 | Pending |
 | NODE-06 | Phase 3 | Pending |
 | NODE-07 | Phase 3 | Pending |
-| EDGE-01 | Phase 3 | Pending |
-| EDGE-02 | Phase 3 | Pending |
-| EDGE-03 | Phase 3 | Pending |
-| EDGE-04 | Phase 3 | Pending |
-| EDGE-05 | Phase 3 | Pending |
-| EDGE-06 | Phase 3 | Pending |
+| EDGE-01 | Phase 3 | Complete |
+| EDGE-02 | Phase 3 | Complete |
+| EDGE-03 | Phase 3 | Complete |
+| EDGE-04 | Phase 3 | Complete |
+| EDGE-05 | Phase 3 | Complete |
+| EDGE-06 | Phase 3 | Complete |
 | EDIT-01 | Phase 4 | Pending |
 | EDIT-02 | Phase 4 | Pending |
 | EDIT-03 | Phase 4 | Pending |
