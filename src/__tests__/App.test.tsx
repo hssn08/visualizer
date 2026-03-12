@@ -35,4 +35,16 @@ describe('App', () => {
     const importButton = screen.getByText('Import');
     expect(importButton).toBeTruthy();
   });
+
+  it('renders full Toolbar with Export button', () => {
+    render(<App />);
+    expect(screen.getByText('Export')).toBeTruthy();
+  });
+
+  it('renders full Toolbar with Layout, Fit, and JSON buttons', () => {
+    render(<App />);
+    expect(screen.getByText('Layout')).toBeTruthy();
+    expect(screen.getByText('Fit')).toBeTruthy();
+    expect(screen.getByText('JSON')).toBeTruthy();
+  });
 });

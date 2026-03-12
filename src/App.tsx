@@ -1,14 +1,12 @@
 import { ReactFlowProvider } from '@xyflow/react';
 import { FlowCanvas } from '@/components/canvas/FlowCanvas';
-import { ImportButton } from '@/components/toolbar/ImportButton';
+import { Toolbar } from '@/components/toolbar/Toolbar';
 
 export default function App() {
   return (
     <ReactFlowProvider>
       <div className="h-screen w-screen flex flex-col">
-        <div className="flex items-center gap-2 px-4 py-2 border-b">
-          <ImportButton />
-        </div>
+        <Toolbar />
         <div className="flex flex-1 min-h-0">
           {/* Sidebar placeholder - Phase 5 */}
           <div className="flex-1">
