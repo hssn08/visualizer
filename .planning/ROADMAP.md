@@ -81,9 +81,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Store extension (updateNodeData, updateEdgeTarget), PropertyPanel with structured fields and connection editors
+- [x] 04-01-PLAN.md — Store extension (updateNodeData, updateEdgeTarget), PropertyPanel with structured fields and connection editors
 - [ ] 04-02-PLAN.md — json-edit-react integration for full JSON fallback editing in property panel
-- [ ] 04-03-PLAN.md — Full toolbar with Export, Auto Layout, Direction, Fit View, JSON Preview toggle
+- [x] 04-03-PLAN.md — Full toolbar with Export, Auto Layout, Direction, Fit View, JSON Preview toggle
 
 ### Phase 5: Graph Editing & Undo/Redo
 **Goal**: Full editing capabilities — add, delete, connect nodes; undo/redo all operations
@@ -143,7 +143,7 @@ Plans:
 | 1. Project Scaffold & Foundation | 2/2 | Complete | 2026-03-12 |
 | 2. JSON Transform Layer | 2/2 | Complete | 2026-03-12 |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
-| 4. Property Panel & Toolbar | 0/3 | Not started | - |
+| 4. Property Panel & Toolbar | 2/3 | In Progress | - |
 | 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
 | 6. Export & Default Flow | 0/2 | Not started | - |
 | 7. Dark Mode & Polish | 0/2 | Not started | - |

@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 04-03
+current_plan: 04-01
 status: in-progress
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-03-12T14:51:17Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-12T14:53:35Z"
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 17
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Project State: Flow Editor
@@ -18,8 +18,8 @@ progress:
 ## Current Status
 
 **Phase:** 04-property-panel-toolbar (IN PROGRESS)
-**Current Plan:** 04-03 complete
-**Last Action:** Completed 04-03-PLAN.md (full toolbar with export, layout, fit, JSON preview)
+**Current Plan:** 04-01 complete
+**Last Action:** Completed 04-01-PLAN.md (property panel foundation with structured fields and connection editor)
 **Date:** 2026-03-12
 
 ## Active Context
@@ -48,7 +48,13 @@ progress:
 - Full toolbar: Import, Export, Auto Layout, Direction, Fit View, JSON Preview buttons
 - ExportButton: flowToJson + Blob download, disabled when no metadata
 - UiSlice extended with jsonPreviewOpen boolean and toggleJsonPreview action
-- 152 tests passing
+- Store extended with updateNodeData (patch merge into node.data.step) and updateEdgeTarget (target + ID regeneration)
+- PropertyPanel: w-80 right sidebar with header, close button, StructuredFields, ConnectionEditor
+- StructuredFields: description, text, audio_file, wait_for_response, pause_duration, timeout
+- ConnectionEditor: outgoing edge list with Select dropdowns to re-target edges
+- shadcn components installed: Input, Textarea, Label, Select, Switch, Separator, ScrollArea
+- Panel wired into App flex layout, conditional on selectedNodeId
+- 165 tests passing
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
@@ -81,6 +87,9 @@ progress:
 | Braces icon for JSON Preview | 2026-03-12 | Clear visual association with JSON/code content |
 | Variant switch for JSON Preview active state | 2026-03-12 | default vs outline variant clearly indicates toggle state |
 | Export filename flow.json | 2026-03-12 | Sufficient for v1, users rename as needed |
+| Immediate store updates on field change | 2026-03-12 | No local form state; canvas reflects edits in real-time |
+| ALWAYS_SHOWN set for description/text | 2026-03-12 | Common fields shown even when absent from step data |
+| Null guard on Select onValueChange | 2026-03-12 | base-ui Select can pass null; guard prevents invalid updateEdgeTarget |
 
 ## Blockers
 
@@ -96,12 +105,13 @@ None
 | 02-02 | 4min | 2 | 9 |
 | 03-02 | 3min | 2 | 5 |
 | 04-03 | 3min | 2 | 7 |
+| 04-01 | 5min | 2 | 21 |
 
 ## Last Session
 
-- **Stopped at:** Completed 04-03-PLAN.md
-- **Timestamp:** 2026-03-12T14:51:17Z
+- **Stopped at:** Completed 04-01-PLAN.md
+- **Timestamp:** 2026-03-12T14:53:35Z
 
 ## Next Step
 
-Phase 04 in progress. Plan 04-03 (toolbar) complete. Continue with remaining Phase 04 plans (04-01 property panel, 04-02 property editing).
+Phase 04 in progress. Plans 04-01 (property panel) and 04-03 (toolbar) complete. Continue with 04-02 (json-edit-react integration).

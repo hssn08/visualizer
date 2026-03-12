@@ -44,11 +44,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Property Editing
 
-- [ ] **EDIT-01**: Clicking a node opens a right sidebar property panel
-- [ ] **EDIT-02**: Panel shows structured fields for common properties (description, text, audio_file, wait_for_response, pause_duration, timeout)
-- [ ] **EDIT-03**: Panel shows connections section with dropdowns to change edge targets
+- [x] **EDIT-01**: Clicking a node opens a right sidebar property panel
+- [x] **EDIT-02**: Panel shows structured fields for common properties (description, text, audio_file, wait_for_response, pause_duration, timeout)
+- [x] **EDIT-03**: Panel shows connections section with dropdowns to change edge targets
 - [ ] **EDIT-04**: Panel includes full JSON editor (json-edit-react) for all node data as fallback
-- [ ] **EDIT-05**: Property changes update the store in real-time
+- [x] **EDIT-05**: Property changes update the store in real-time
 - [x] **EDIT-06**: Clicking canvas background deselects node and closes panel
 
 ### Graph Editing
@@ -143,11 +143,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDGE-04 | Phase 3 | Complete |
 | EDGE-05 | Phase 3 | Complete |
 | EDGE-06 | Phase 3 | Complete |
-| EDIT-01 | Phase 4 | Pending |
-| EDIT-02 | Phase 4 | Pending |
-| EDIT-03 | Phase 4 | Pending |
+| EDIT-01 | Phase 4 | Complete |
+| EDIT-02 | Phase 4 | Complete |
+| EDIT-03 | Phase 4 | Complete |
 | EDIT-04 | Phase 4 | Pending |
-| EDIT-05 | Phase 4 | Pending |
+| EDIT-05 | Phase 4 | Complete |
 | EDIT-06 | Phase 4 | Complete |
 | GRAPH-01 | Phase 5 | Pending |
 | GRAPH-02 | Phase 5 | Pending |
