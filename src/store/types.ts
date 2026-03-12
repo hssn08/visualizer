@@ -1,11 +1,17 @@
 import type { Node, Edge, NodeChange, EdgeChange, Connection } from '@xyflow/react';
+import type { JsonMetadata } from '@/lib/types';
 
 export interface FlowSlice {
   nodes: Node[];
   edges: Edge[];
+  rawJson: Record<string, unknown> | null;
+  metadata: JsonMetadata | null;
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
+  setNodes: (nodes: Node[]) => void;
+  setEdges: (edges: Edge[]) => void;
+  importJson: (raw: Record<string, unknown>) => void;
 }
 
 export interface UiSlice {

@@ -29,4 +29,10 @@ describe('App', () => {
     const reactFlowEl = container.querySelector('.react-flow');
     expect(reactFlowEl).toBeTruthy();
   });
+
+  it('renders ImportButton with "Import" text', () => {
+    render(<App />);
+    const importButton = screen.getByText('Import');
+    expect(importButton).toBeTruthy();
+  });
 });
