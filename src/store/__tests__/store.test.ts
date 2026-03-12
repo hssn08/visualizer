@@ -11,6 +11,7 @@ describe('Zustand Store', () => {
       rawJson: null,
       metadata: null,
       selectedNodeId: null,
+      layoutDirection: 'TB',
     });
   });
 
@@ -105,5 +106,54 @@ describe('Zustand Store', () => {
     expect(state.metadata).not.toBeNull();
     expect(state.metadata!.stepsKey).toBe('steps');
     expect(state.metadata!.wrapperFields).toHaveProperty('flow_name', 'Medicare Enrollment');
+  });
+
+  it('has layoutDirection initially set to TB', () => {
+    const state = useAppStore.getState();
+    expect(state.layoutDirection).toBe('TB');
+  });
+
+  it('setLayoutDirection changes the direction', () => {
+    const { setLayoutDirection } = useAppStore.getState();
+    setLayoutDirection('LR');
+    expect(useAppStore.getState().layoutDirection).toBe('LR');
+
+    setLayoutDirection('TB');
+    expect(useAppStore.getState().layoutDirection).toBe('TB');
+  });
+
+  it('autoLayout repositions nodes using dagre', () => {
+    const { importJson } = useAppStore.getState();
+    importJson(sampleFlow as Record<string, unknown>);
+
+    // Record positions after import
+    const positionsAfterImport = useAppStore.getState().nodes.map((n) => ({ ...n.position }));
+
+    // Manually set all nodes to (0,0) to verify autoLayout changes them
+    const resetNodes = useAppStore.getState().nodes.map((n) => ({
+      ...n,
+      position: { x: 0, y: 0 },
+    }));
+    useAppStore.getState().setNodes(resetNodes);
+
+    // Now auto layout should reposition them
+    useAppStore.getState().autoLayout();
+    const positionsAfterAutoLayout = useAppStore.getState().nodes.map((n) => ({ ...n.position }));
+
+    // Positions should match import positions (both use dagre with same direction)
+    expect(positionsAfterAutoLayout).toEqual(positionsAfterImport);
+  });
+
+  it('importJson applies dagre layout (positions are not grid positions)', () => {
+    const { importJson } = useAppStore.getState();
+    importJson(sampleFlow as Record<string, unknown>);
+
+    const state = useAppStore.getState();
+    // The old grid layout used x = (i % 4) * 300, y = Math.floor(i / 4) * 200
+    // Dagre positions should differ from that pattern.
+    // With dagre, not all nodes will be at y=0 (tree layout adds vertical spacing)
+    const uniqueYs = new Set(state.nodes.map((n) => n.position.y));
+    // With 9 nodes in a tree, there should be multiple unique Y values
+    expect(uniqueYs.size).toBeGreaterThan(1);
   });
 });

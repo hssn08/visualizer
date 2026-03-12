@@ -6,12 +6,15 @@ export interface FlowSlice {
   edges: Edge[];
   rawJson: Record<string, unknown> | null;
   metadata: JsonMetadata | null;
+  layoutDirection: 'TB' | 'LR';
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
   importJson: (raw: Record<string, unknown>) => void;
+  setLayoutDirection: (dir: 'TB' | 'LR') => void;
+  autoLayout: () => void;
 }
 
 export interface UiSlice {
