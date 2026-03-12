@@ -45,6 +45,7 @@ export function jsonToFlow(rawJson: Record<string, unknown>): FlowTransformResul
 /**
  * Convert step objects into React Flow nodes with grid positions.
  * Each node stores the full original step object in node.data.step (IMP-04).
+ * Nodes use type: 'step' to render via the custom StepNode component.
  */
 function stepsToNodes(
   steps: Record<string, Record<string, unknown>>
@@ -53,7 +54,7 @@ function stepsToNodes(
 
   return entries.map(([key, step], i) => ({
     id: key,
-    type: 'default' as const,
+    type: 'step' as const,
     position: {
       x: (i % COLS) * X_GAP,
       y: Math.floor(i / COLS) * Y_GAP,
@@ -61,6 +62,7 @@ function stepsToNodes(
     data: {
       label: (step.description as string) || (step.name as string) || key,
       step: { ...step },
+      isFirstNode: i === 0,
     },
   }));
 }

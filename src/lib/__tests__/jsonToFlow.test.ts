@@ -34,10 +34,18 @@ describe('jsonToFlow', () => {
     }
   });
 
-  it('each node has type "default"', () => {
+  it('each node has type "step" for custom StepNode rendering', () => {
     const result = jsonToFlow(sampleJson);
     for (const node of result.nodes) {
-      expect(node.type).toBe('default');
+      expect(node.type).toBe('step');
+    }
+  });
+
+  it('first node has isFirstNode=true, all others false', () => {
+    const result = jsonToFlow(sampleJson);
+    expect(result.nodes[0].data.isFirstNode).toBe(true);
+    for (let i = 1; i < result.nodes.length; i++) {
+      expect(result.nodes[i].data.isFirstNode).toBe(false);
     }
   });
 
