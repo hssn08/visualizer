@@ -1,12 +1,16 @@
-import { Button } from '@/components/ui/button';
+import { ReactFlowProvider } from '@xyflow/react';
+import { FlowCanvas } from '@/components/canvas/FlowCanvas';
 
 export default function App() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-background text-foreground">
-      <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold">Flow Editor</h1>
-        <Button>Ready</Button>
+    <ReactFlowProvider>
+      <div className="h-screen w-screen flex">
+        {/* Sidebar placeholder - Phase 5 */}
+        <div className="flex-1">
+          <FlowCanvas />
+        </div>
+        {/* Property panel placeholder - Phase 4 */}
       </div>
-    </div>
+    </ReactFlowProvider>
   );
 }
