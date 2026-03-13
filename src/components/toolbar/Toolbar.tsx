@@ -41,7 +41,7 @@ export function Toolbar() {
   };
 
   return (
-    <div className="flex items-center gap-2 px-4 py-2 border-b">
+    <div className="flex items-center gap-2 px-4 py-2 border-b flex-wrap gap-y-1">
       <Button
         variant={paletteOpen ? 'default' : 'outline'}
         size="icon-sm"
