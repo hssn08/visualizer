@@ -1,7 +1,8 @@
-import { applyNodeChanges, applyEdgeChanges, addEdge } from '@xyflow/react';
+import { applyNodeChanges, applyEdgeChanges } from '@xyflow/react';
 import type { StateCreator } from 'zustand';
 import { jsonToFlow } from '@/lib/jsonToFlow';
 import { getLayoutedElements } from '@/lib/layout';
+import { deriveEdgeType, syncEdgeCreateToStep, syncEdgeDeleteToStep } from '@/lib/edgeSync';
 import type { AppState, FlowSlice } from './types';
 
 export const createFlowSlice: StateCreator<AppState, [], [], FlowSlice> = (set, get) => ({
@@ -14,8 +15,26 @@ export const createFlowSlice: StateCreator<AppState, [], [], FlowSlice> = (set, 
     set({ nodes: applyNodeChanges(changes, get().nodes) }),
   onEdgesChange: (changes) =>
     set({ edges: applyEdgeChanges(changes, get().edges) }),
-  onConnect: (connection) =>
-    set({ edges: addEdge(connection, get().edges) }),
+  onConnect: (connection) => {
+    const { source, target, sourceHandle, targetHandle } = connection;
+    if (!source || !target) return;
+    const handleId = sourceHandle || 'next';
+    const newEdge = {
+      id: `${source}->${handleId}->${target}`,
+      source,
+      target,
+      sourceHandle: handleId,
+      targetHandle: targetHandle || 'target',
+      type: 'conditional' as const,
+      data: { edgeType: deriveEdgeType(sourceHandle ?? null) },
+    };
+    set({ edges: [...get().edges, newEdge] });
+    // Sync the connection field to source node step data
+    const patch = syncEdgeCreateToStep(sourceHandle ?? null, target);
+    if (Object.keys(patch).length > 0) {
+      get().updateNodeData(source, patch);
+    }
+  },
   setNodes: (nodes) => set({ nodes }),
   setEdges: (edges) => set({ edges }),
   importJson: (raw) => {
@@ -56,4 +75,13 @@ export const createFlowSlice: StateCreator<AppState, [], [], FlowSlice> = (set, 
       }),
     });
   },
+  onEdgesDelete: (deletedEdges) => {
+    for (const edge of deletedEdges) {
+      const patch = syncEdgeDeleteToStep(edge);
+      if (Object.keys(patch).length > 0) {
+        get().updateNodeData(edge.source, patch);
+      }
+    }
+  },
+  addNode: (node) => set({ nodes: [...get().nodes, node] }),
 });

@@ -17,6 +17,8 @@ export interface FlowSlice {
   autoLayout: () => void;
   updateNodeData: (nodeId: string, patch: Record<string, unknown>) => void;
   updateEdgeTarget: (edgeId: string, newTarget: string) => void;
+  onEdgesDelete: (edges: Edge[]) => void;
+  addNode: (node: Node) => void;
 }
 
 export interface UiSlice {
