@@ -2,6 +2,7 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { FlowCanvas } from '@/components/canvas/FlowCanvas';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { PropertyPanel } from '@/components/panel/PropertyPanel';
+import { JsonPreviewPanel } from '@/components/preview/JsonPreviewPanel';
 import { NodePalette } from '@/components/palette/NodePalette';
 import { useAppStore } from '@/store';
 import { useUndoRedo } from '@/hooks/useUndoRedo';
@@ -9,6 +10,7 @@ import { useUndoRedo } from '@/hooks/useUndoRedo';
 export default function App() {
   useUndoRedo();
   const selectedNodeId = useAppStore((s) => s.selectedNodeId);
+  const jsonPreviewOpen = useAppStore((s) => s.jsonPreviewOpen);
 
   return (
     <ReactFlowProvider>
@@ -20,6 +22,7 @@ export default function App() {
             <FlowCanvas />
           </div>
           {selectedNodeId && <PropertyPanel nodeId={selectedNodeId} />}
+          {jsonPreviewOpen && <JsonPreviewPanel />}
         </div>
       </div>
     </ReactFlowProvider>

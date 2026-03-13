@@ -77,4 +77,35 @@ describe('App', () => {
       expect(panel).toBeTruthy();
     });
   });
+
+  describe('JsonPreviewPanel integration', () => {
+    beforeEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+        jsonPreviewOpen: false,
+      });
+    });
+
+    it('does not render JsonPreviewPanel when jsonPreviewOpen is false', () => {
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      // jsonPreviewOpen defaults to false
+      const { container } = render(<App />);
+      const panel = container.querySelector('[data-testid="json-preview-panel"]');
+      expect(panel).toBeNull();
+    });
+
+    it('renders JsonPreviewPanel when jsonPreviewOpen is true and metadata exists', () => {
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      useAppStore.setState({ jsonPreviewOpen: true });
+
+      const { container } = render(<App />);
+      const panel = container.querySelector('[data-testid="json-preview-panel"]');
+      expect(panel).toBeTruthy();
+    });
+  });
 });
