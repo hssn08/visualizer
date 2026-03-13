@@ -203,6 +203,139 @@ describe('Zustand Store', () => {
     });
   });
 
+  describe('onConnect (edge sync)', () => {
+    it('creates edge with type "conditional" and correct data.edgeType', () => {
+      // Set up a source node with step data
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: { description: 'test' } } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [],
+      });
+
+      const { onConnect } = useAppStore.getState();
+      onConnect({ source: 'a', target: 'b', sourceHandle: 'next', targetHandle: 'target' });
+
+      const edges = useAppStore.getState().edges;
+      expect(edges).toHaveLength(1);
+      expect(edges[0].type).toBe('conditional');
+      expect(edges[0].data?.edgeType).toBe('next');
+    });
+
+    it('creates edge with ID format source->handle->target', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [],
+      });
+
+      const { onConnect } = useAppStore.getState();
+      onConnect({ source: 'a', target: 'b', sourceHandle: 'next', targetHandle: 'target' });
+
+      const edges = useAppStore.getState().edges;
+      expect(edges[0].id).toBe('a->next->b');
+    });
+
+    it('syncs source node step data with the connection field after connect', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: { description: 'test' } } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [],
+      });
+
+      const { onConnect } = useAppStore.getState();
+      onConnect({ source: 'a', target: 'b', sourceHandle: 'next', targetHandle: 'target' });
+
+      const node = useAppStore.getState().nodes.find((n) => n.id === 'a');
+      const step = (node!.data as { step: Record<string, unknown> }).step;
+      expect(step.next).toBe('b');
+    });
+
+    it('syncs timeout_next for timeout handle', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [],
+      });
+
+      const { onConnect } = useAppStore.getState();
+      onConnect({ source: 'a', target: 'b', sourceHandle: 'timeout', targetHandle: 'target' });
+
+      const node = useAppStore.getState().nodes.find((n) => n.id === 'a');
+      const step = (node!.data as { step: Record<string, unknown> }).step;
+      expect(step.timeout_next).toBe('b');
+    });
+  });
+
+  describe('onEdgesDelete (edge sync cleanup)', () => {
+    it('clears connection field on source node step data when edge is deleted', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: { next: 'b' } } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [
+          { id: 'a->next->b', source: 'a', target: 'b', type: 'conditional', sourceHandle: 'next', data: { edgeType: 'next' } },
+        ],
+      });
+
+      const { onEdgesDelete } = useAppStore.getState();
+      onEdgesDelete([
+        { id: 'a->next->b', source: 'a', target: 'b', type: 'conditional', sourceHandle: 'next', data: { edgeType: 'next' } },
+      ]);
+
+      const node = useAppStore.getState().nodes.find((n) => n.id === 'a');
+      const step = (node!.data as { step: Record<string, unknown> }).step;
+      expect(step.next).toBeUndefined();
+    });
+
+    it('clears timeout_next field when timeout edge is deleted', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: { timeout_next: 'b' } } },
+          { id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } },
+        ],
+        edges: [
+          { id: 'a->timeout->b', source: 'a', target: 'b', type: 'conditional', sourceHandle: 'timeout', data: { edgeType: 'timeout' } },
+        ],
+      });
+
+      const { onEdgesDelete } = useAppStore.getState();
+      onEdgesDelete([
+        { id: 'a->timeout->b', source: 'a', target: 'b', type: 'conditional', sourceHandle: 'timeout', data: { edgeType: 'timeout' } },
+      ]);
+
+      const node = useAppStore.getState().nodes.find((n) => n.id === 'a');
+      const step = (node!.data as { step: Record<string, unknown> }).step;
+      expect(step.timeout_next).toBeUndefined();
+    });
+  });
+
+  describe('addNode', () => {
+    it('appends a new node to the nodes array', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+        ],
+        edges: [],
+      });
+
+      const { addNode } = useAppStore.getState();
+      addNode({ id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } });
+
+      const nodes = useAppStore.getState().nodes;
+      expect(nodes).toHaveLength(2);
+      expect(nodes[1].id).toBe('b');
+    });
+  });
+
   describe('updateEdgeTarget', () => {
     it('changes edge.target and regenerates edge.id', () => {
       const { importJson } = useAppStore.getState();
