@@ -4,8 +4,10 @@ import { Toolbar } from '@/components/toolbar/Toolbar';
 import { PropertyPanel } from '@/components/panel/PropertyPanel';
 import { NodePalette } from '@/components/palette/NodePalette';
 import { useAppStore } from '@/store';
+import { useUndoRedo } from '@/hooks/useUndoRedo';
 
 export default function App() {
+  useUndoRedo();
   const selectedNodeId = useAppStore((s) => s.selectedNodeId);
 
   return (
