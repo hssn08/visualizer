@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/store';
 import { ImportButton } from './ImportButton';
 import { ExportButton } from './ExportButton';
+import { ModeToggle } from './ModeToggle';
 
 export function Toolbar() {
   const { fitView } = useReactFlow();
@@ -74,6 +75,11 @@ export function Toolbar() {
         <Braces data-icon="inline-start" />
         JSON
       </Button>
+
+      {/* Separator */}
+      <div className="w-px h-5 bg-border" />
+
+      <ModeToggle />
     </div>
   );
 }
