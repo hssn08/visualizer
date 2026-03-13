@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { ReactFlow, Background, Controls, MiniMap, useReactFlow } from '@xyflow/react';
-import type { Node } from '@xyflow/react';
+import type { Node, Edge } from '@xyflow/react';
 import { useShallow } from 'zustand/react/shallow';
 import { useAppStore } from '@/store';
 import { nodeTypes } from './nodeTypes';
@@ -8,9 +8,20 @@ import { edgeTypes } from './edgeTypes';
 import { classifyNodeRole, ROLE_COLORS } from '@/lib/nodeClassify';
 import { createNodeFromTemplate, NODE_TEMPLATES } from '@/components/palette/nodeTemplates';
 import { getDraggedTemplateType, clearDraggedTemplateType } from '@/components/palette/PaletteItem';
+import { useNodeDelete } from '@/hooks/useNodeDelete';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
 
 export function FlowCanvas() {
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, setSelectedNodeId, addNode } =
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onEdgesDelete, setSelectedNodeId, addNode } =
     useAppStore(
       useShallow((s) => ({
         nodes: s.nodes,
@@ -18,12 +29,14 @@ export function FlowCanvas() {
         onNodesChange: s.onNodesChange,
         onEdgesChange: s.onEdgesChange,
         onConnect: s.onConnect,
+        onEdgesDelete: s.onEdgesDelete,
         setSelectedNodeId: s.setSelectedNodeId,
         addNode: s.addNode,
       }))
     );
 
   const { screenToFlowPosition } = useReactFlow();
+  const { onBeforeDelete, deleteConfirm, confirmDelete, cancelDelete } = useNodeDelete();
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
@@ -73,23 +86,68 @@ export function FlowCanvas() {
     [screenToFlowPosition, nodes, addNode]
   );
 
+  /**
+   * Called after React Flow confirms deletion (after onBeforeDelete resolves true).
+   * Syncs step data for any deleted edges (including edges connected to deleted nodes).
+   */
+  const handleDelete = useCallback(
+    ({ nodes: deletedNodes, edges: deletedEdges }: { nodes: Node[]; edges: Edge[] }) => {
+      if (deletedEdges.length > 0) {
+        onEdgesDelete(deletedEdges);
+      }
+      // Clear selectedNodeId if the selected node was deleted
+      for (const node of deletedNodes) {
+        const selectedId = useAppStore.getState().selectedNodeId;
+        if (selectedId === node.id) {
+          setSelectedNodeId(null);
+          break;
+        }
+      }
+    },
+    [onEdgesDelete, setSelectedNodeId]
+  );
+
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      onNodeClick={onNodeClick}
-      onPaneClick={onPaneClick}
-      onPointerUp={onPointerUp}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      fitView
-    >
-      <Background />
-      <Controls />
-      <MiniMap nodeColor={miniMapNodeColor} pannable zoomable />
-    </ReactFlow>
+    <>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onBeforeDelete={onBeforeDelete}
+        onDelete={handleDelete}
+        deleteKeyCode={['Backspace', 'Delete']}
+        onNodeClick={onNodeClick}
+        onPaneClick={onPaneClick}
+        onPointerUp={onPointerUp}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        fitView
+      >
+        <Background />
+        <Controls />
+        <MiniMap nodeColor={miniMapNodeColor} pannable zoomable />
+      </ReactFlow>
+      <AlertDialog open={!!deleteConfirm} onOpenChange={(open) => { if (!open) cancelDelete(); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Node?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will remove &quot;{deleteConfirm?.nodes[0]?.id}&quot; and its connected edges.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelDelete}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction variant="destructive" onClick={confirmDelete}>
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
