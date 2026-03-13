@@ -133,8 +133,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: Dark mode with shadcn theme toggle, collapsible panels
-- [ ] 07-02: Responsive layout, performance audit, production build verification
+- [ ] 07-01-PLAN.md — Dark mode with shadcn ThemeProvider, ModeToggle, dark-mode-aware components, collapsible panels (UI-01, UI-05)
+- [ ] 07-02-PLAN.md — Responsive layout with useMediaQuery auto-collapse, production build optimization (UI-06)
 
 ## Progress
 
