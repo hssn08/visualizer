@@ -111,6 +111,9 @@ progress:
 | Pointer-event DnD over HTML5 drag | 2026-03-13 | Avoids ghost image artifacts and coordinate system conflicts with React Flow |
 | screenToFlowPosition for drop coords | 2026-03-13 | Handles zoom, pan, DPI correctly without manual viewport math |
 | type_step_N ID pattern | 2026-03-13 | Unique IDs with collision avoidance via Set lookup |
+| Pure edgeSync functions separate from store | 2026-03-13 | Keeps sync logic testable without store setup |
+| Edge-only deletion bypasses dialog | 2026-03-13 | Only node deletions are destructive enough for confirmation |
+| handleDelete syncs cascading edge deletions | 2026-03-13 | React Flow removes connected edges on node delete; must sync step data |
 
 ## Blockers
 
@@ -129,12 +132,13 @@ None
 | 04-01 | 5min | 2 | 21 |
 | 04-02 | 3min | 2 | 3 |
 | 05-01 | 5min | 2 | 6 |
+| 05-02 | 6min | 2 | 9 |
 
 ## Last Session
 
-- **Stopped at:** Completed 05-01-PLAN.md
-- **Timestamp:** 2026-03-13T09:28:30Z
+- **Stopped at:** Completed 05-02-PLAN.md
+- **Timestamp:** 2026-03-13T09:30:00Z
 
 ## Next Step
 
-Phase 05 Plan 01 complete (node palette + DnD). Ready for Plan 05-02 (edge sync, onConnect/onEdgesDelete step data sync) and Plan 05-03 (node deletion with confirmation, undo/redo keyboard shortcuts).
+Phase 05 Plans 01-02 complete. Ready for Plan 05-03 (undo/redo with keyboard shortcuts, drag throttling).

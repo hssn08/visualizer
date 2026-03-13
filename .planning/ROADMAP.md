@@ -100,8 +100,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Node palette sidebar with drag-and-drop node creation (GRAPH-01, GRAPH-02)
-- [ ] 05-02-PLAN.md — Edge creation/deletion synced with step data, node deletion with AlertDialog confirmation (GRAPH-03, GRAPH-04, GRAPH-05, GRAPH-06, GRAPH-07, UI-03)
+- [x] 05-01-PLAN.md — Node palette sidebar with drag-and-drop node creation (GRAPH-01, GRAPH-02)
+- [x] 05-02-PLAN.md — Edge creation/deletion synced with step data, node deletion with AlertDialog confirmation (GRAPH-03, GRAPH-04, GRAPH-05, GRAPH-06, GRAPH-07, UI-03)
 - [ ] 05-03-PLAN.md — Zundo undo/redo keyboard shortcuts and drag throttle via pause/resume (UNDO-01, UNDO-02, UNDO-03, UI-04)
 
 ### Phase 6: Export & Default Flow
@@ -144,6 +144,6 @@ Plans:
 | 2. JSON Transform Layer | 2/2 | Complete | 2026-03-12 |
 | 3. Canvas Rendering & Layout | 0/3 | Not started | - |
 | 4. Property Panel & Toolbar | 3/3 | Complete | 2026-03-12 |
-| 5. Graph Editing & Undo/Redo | 0/3 | Not started | - |
+| 5. Graph Editing & Undo/Redo | 2/3 | In Progress | - |
 | 6. Export & Default Flow | 0/2 | Not started | - |
 | 7. Dark Mode & Polish | 0/2 | Not started | - |

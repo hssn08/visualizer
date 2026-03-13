@@ -55,11 +55,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **GRAPH-01**: User can add new nodes via drag-and-drop from sidebar palette
 - [x] **GRAPH-02**: Palette offers Basic Step, Decision Step, Terminal Step templates
-- [ ] **GRAPH-03**: User can draw new edges by dragging between node handles
-- [ ] **GRAPH-04**: User can delete nodes with confirmation dialog
-- [ ] **GRAPH-05**: User can delete edges
-- [ ] **GRAPH-06**: Deleting an edge removes the corresponding connection field from step data
-- [ ] **GRAPH-07**: Drawing a new edge adds the appropriate field to source step data
+- [x] **GRAPH-03**: User can draw new edges by dragging between node handles
+- [x] **GRAPH-04**: User can delete nodes with confirmation dialog
+- [x] **GRAPH-05**: User can delete edges
+- [x] **GRAPH-06**: Deleting an edge removes the corresponding connection field from step data
+- [x] **GRAPH-07**: Drawing a new edge adds the appropriate field to source step data
 
 ### Undo/Redo
 
@@ -78,7 +78,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **UI-01**: Dark mode support via shadcn theme
 - [x] **UI-02**: Top toolbar with Import, Export, Auto Layout, Layout Direction, Zoom to Fit, JSON Preview toggle
-- [ ] **UI-03**: Keyboard shortcut: Delete/Backspace removes selected node
+- [x] **UI-03**: Keyboard shortcut: Delete/Backspace removes selected node
 - [ ] **UI-04**: Keyboard shortcut: Ctrl+Z undo, Ctrl+Shift+Z redo
 - [ ] **UI-05**: Property panel and node palette are collapsible
 - [ ] **UI-06**: Responsive layout adapts to smaller screens
@@ -151,11 +151,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-06 | Phase 4 | Complete |
 | GRAPH-01 | Phase 5 | Complete |
 | GRAPH-02 | Phase 5 | Complete |
-| GRAPH-03 | Phase 5 | Pending |
-| GRAPH-04 | Phase 5 | Pending |
-| GRAPH-05 | Phase 5 | Pending |
-| GRAPH-06 | Phase 5 | Pending |
-| GRAPH-07 | Phase 5 | Pending |
+| GRAPH-03 | Phase 5 | Complete |
+| GRAPH-04 | Phase 5 | Complete |
+| GRAPH-05 | Phase 5 | Complete |
+| GRAPH-06 | Phase 5 | Complete |
+| GRAPH-07 | Phase 5 | Complete |
 | UNDO-01 | Phase 5 | Pending |
 | UNDO-02 | Phase 5 | Pending |
 | UNDO-03 | Phase 5 | Pending |
@@ -165,7 +165,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-04 | Phase 6 | Pending |
 | UI-01 | Phase 7 | Pending |
 | UI-02 | Phase 4 | Complete |
-| UI-03 | Phase 5 | Pending |
+| UI-03 | Phase 5 | Complete |
 | UI-04 | Phase 5 | Pending |
 | UI-05 | Phase 7 | Pending |
 | UI-06 | Phase 7 | Pending |
