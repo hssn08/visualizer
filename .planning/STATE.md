@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 05-02 complete, 05-03 next
+current_plan: 05-03 complete, all phase 05 plans done
 status: in_progress
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-13T09:31:36.443Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-13T11:20:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 05-graph-editing-undo-redo (IN PROGRESS)
-**Current Plan:** 05-02 complete, 05-03 next
-**Last Action:** Completed 05-02-PLAN.md (edge sync and node deletion)
+**Phase:** 05-graph-editing-undo-redo (ALL PLANS COMPLETE)
+**Current Plan:** 05-03 complete, all phase 05 plans done
+**Last Action:** Completed 05-03-PLAN.md (undo/redo keyboard shortcuts + drag throttle)
 **Date:** 2026-03-13
 
 ## Active Context
@@ -70,6 +70,9 @@ progress:
 - FlowCanvas: onBeforeDelete, onDelete, deleteKeyCode=['Backspace','Delete'] wired on ReactFlow
 - shadcn AlertDialog installed (base-ui/react)
 - 210 tests passing (16 edgeSync + 7 store edge handlers + 6 useNodeDelete + existing)
+- useUndoRedo hook: global Ctrl/Cmd+Z undo, Ctrl/Cmd+Shift+Z redo wired at App level
+- Drag pause/snapshot/resume: onNodeDragStart captures state + pauses temporal, onNodeDragStop resumes + pushes snapshot to pastStates
+- 219 tests passing (6 useUndoRedo + 3 temporal store + previous suite)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 13 plans total
 - 48 v1 requirements across 9 categories
@@ -114,6 +117,8 @@ progress:
 | Pure edgeSync functions separate from store | 2026-03-13 | Keeps sync logic testable without store setup |
 | Edge-only deletion bypasses dialog | 2026-03-13 | Only node deletions are destructive enough for confirmation |
 | handleDelete syncs cascading edge deletions | 2026-03-13 | React Flow removes connected edges on node delete; must sync step data |
+| Pause/snapshot/resume for drag undo | 2026-03-13 | Zundo resume() doesn't auto-create entries; manually push pre-drag snapshot to pastStates |
+| Reference equality guard on drag stop | 2026-03-13 | Skip no-op undo entries when click fires drag events without position change |
 
 ## Blockers
 
@@ -133,12 +138,13 @@ None
 | 04-02 | 3min | 2 | 3 |
 | 05-01 | 5min | 2 | 6 |
 | 05-02 | 6min | 2 | 9 |
+| 05-03 | 8min | 2 | 5 |
 
 ## Last Session
 
-- **Stopped at:** Completed 05-02-PLAN.md
-- **Timestamp:** 2026-03-13T09:30:00Z
+- **Stopped at:** Completed 05-03-PLAN.md (all Phase 05 plans done)
+- **Timestamp:** 2026-03-13T11:20:00Z
 
 ## Next Step
 
-Phase 05 Plans 01-02 complete. Ready for Plan 05-03 (undo/redo with keyboard shortcuts, drag throttling).
+Phase 05 all plans complete (3/3). Ready for verification.
