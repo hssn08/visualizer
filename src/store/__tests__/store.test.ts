@@ -336,6 +336,117 @@ describe('Zustand Store', () => {
     });
   });
 
+  describe('undo/redo with temporal', () => {
+    beforeEach(() => {
+      // Clear temporal history so undo steps from prior tests don't leak
+      useAppStore.temporal.getState().clear();
+    });
+
+    it('undo reverts addNode', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+        ],
+        edges: [],
+      });
+      // Clear history after setup so addNode is the first undo step
+      useAppStore.temporal.getState().clear();
+
+      const { addNode } = useAppStore.getState();
+      addNode({ id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } });
+      expect(useAppStore.getState().nodes).toHaveLength(2);
+
+      useAppStore.temporal.getState().undo();
+      expect(useAppStore.getState().nodes).toHaveLength(1);
+      expect(useAppStore.getState().nodes[0].id).toBe('a');
+    });
+
+    it('pause + snapshot + resume produces one undo step for drag', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+        ],
+        edges: [],
+      });
+      useAppStore.temporal.getState().clear();
+
+      // Simulate onNodeDragStart: capture snapshot then pause
+      const snapshot = {
+        nodes: useAppStore.getState().nodes,
+        edges: useAppStore.getState().edges,
+      };
+      useAppStore.temporal.getState().pause();
+
+      // Multiple position changes during drag (not tracked)
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 50, y: 50 }, data: { label: 'a', step: {} } },
+        ],
+      });
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 200, y: 200 }, data: { label: 'a', step: {} } },
+        ],
+      });
+
+      // Simulate onNodeDragStop: resume then push snapshot to history
+      useAppStore.temporal.getState().resume();
+      const { pastStates } = useAppStore.temporal.getState();
+      useAppStore.temporal.setState({
+        pastStates: [...pastStates, snapshot],
+        futureStates: [],
+      });
+
+      expect(useAppStore.getState().nodes[0].position).toEqual({ x: 200, y: 200 });
+
+      // One undo should revert to pre-drag state
+      useAppStore.temporal.getState().undo();
+      expect(useAppStore.getState().nodes[0].position).toEqual({ x: 0, y: 0 });
+    });
+
+    it('drag undo step is independent from prior undo steps', () => {
+      useAppStore.setState({
+        nodes: [
+          { id: 'a', type: 'step', position: { x: 0, y: 0 }, data: { label: 'a', step: {} } },
+        ],
+        edges: [],
+      });
+      useAppStore.temporal.getState().clear();
+
+      // Undo step 1: add a node
+      const { addNode } = useAppStore.getState();
+      addNode({ id: 'b', type: 'step', position: { x: 100, y: 0 }, data: { label: 'b', step: {} } });
+      expect(useAppStore.getState().nodes).toHaveLength(2);
+
+      // Undo step 2: drag node a (pause/snapshot/resume pattern)
+      const snapshot = {
+        nodes: useAppStore.getState().nodes,
+        edges: useAppStore.getState().edges,
+      };
+      useAppStore.temporal.getState().pause();
+      useAppStore.setState({
+        nodes: useAppStore.getState().nodes.map((n) =>
+          n.id === 'a' ? { ...n, position: { x: 300, y: 300 } } : n
+        ),
+      });
+      useAppStore.temporal.getState().resume();
+      const { pastStates } = useAppStore.temporal.getState();
+      useAppStore.temporal.setState({
+        pastStates: [...pastStates, snapshot],
+        futureStates: [],
+      });
+
+      // Undo the drag — should revert position but keep both nodes
+      useAppStore.temporal.getState().undo();
+      expect(useAppStore.getState().nodes).toHaveLength(2);
+      expect(useAppStore.getState().nodes.find((n) => n.id === 'a')!.position).toEqual({ x: 0, y: 0 });
+
+      // Undo the addNode
+      useAppStore.temporal.getState().undo();
+      expect(useAppStore.getState().nodes).toHaveLength(1);
+    });
+  });
+
   describe('updateEdgeTarget', () => {
     it('changes edge.target and regenerates edge.id', () => {
       const { importJson } = useAppStore.getState();

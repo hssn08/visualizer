@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { ReactFlow, Background, Controls, MiniMap, useReactFlow } from '@xyflow/react';
 import type { Node, Edge } from '@xyflow/react';
 import { useShallow } from 'zustand/react/shallow';
@@ -37,6 +37,37 @@ export function FlowCanvas() {
 
   const { screenToFlowPosition } = useReactFlow();
   const { onBeforeDelete, deleteConfirm, confirmDelete, cancelDelete } = useNodeDelete();
+
+  // Drag pause/resume: capture pre-drag state so the entire drag is one undo step
+  const preDragSnapshot = useRef<{ nodes: typeof nodes; edges: typeof edges } | null>(null);
+
+  const onNodeDragStart = useCallback(() => {
+    preDragSnapshot.current = {
+      nodes: useAppStore.getState().nodes,
+      edges: useAppStore.getState().edges,
+    };
+    useAppStore.temporal.getState().pause();
+  }, []);
+
+  const onNodeDragStop = useCallback(() => {
+    const snapshot = preDragSnapshot.current;
+    preDragSnapshot.current = null;
+    useAppStore.temporal.getState().resume();
+
+    if (!snapshot) return;
+
+    // Only create an undo entry if state actually changed (handles click-without-drag)
+    const currentNodes = useAppStore.getState().nodes;
+    const currentEdges = useAppStore.getState().edges;
+    if (snapshot.nodes === currentNodes && snapshot.edges === currentEdges) return;
+
+    // Push pre-drag state as a single undo entry
+    const { pastStates } = useAppStore.temporal.getState();
+    useAppStore.temporal.setState({
+      pastStates: [...pastStates, snapshot],
+      futureStates: [],
+    });
+  }, []);
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
@@ -118,6 +149,8 @@ export function FlowCanvas() {
         onBeforeDelete={onBeforeDelete}
         onDelete={handleDelete}
         deleteKeyCode={['Backspace', 'Delete']}
+        onNodeDragStart={onNodeDragStart}
+        onNodeDragStop={onNodeDragStop}
         onNodeClick={onNodeClick}
         onPaneClick={onPaneClick}
         onPointerUp={onPointerUp}
