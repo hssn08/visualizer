@@ -26,6 +26,10 @@ export interface UiSlice {
   setSelectedNodeId: (id: string | null) => void;
   jsonPreviewOpen: boolean;
   toggleJsonPreview: () => void;
+  paletteOpen: boolean;
+  togglePalette: () => void;
+  propertyPanelOpen: boolean;
+  togglePropertyPanel: () => void;
 }
 
 export type AppState = FlowSlice & UiSlice;

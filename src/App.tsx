@@ -14,6 +14,8 @@ export default function App() {
   useUndoRedo();
   const selectedNodeId = useAppStore((s) => s.selectedNodeId);
   const jsonPreviewOpen = useAppStore((s) => s.jsonPreviewOpen);
+  const paletteOpen = useAppStore((s) => s.paletteOpen);
+  const propertyPanelOpen = useAppStore((s) => s.propertyPanelOpen);
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
@@ -21,11 +23,11 @@ export default function App() {
         <div className="h-screen w-screen flex flex-col">
           <Toolbar />
           <div className="flex flex-1 min-h-0">
-            <NodePalette />
+            {paletteOpen && <NodePalette />}
             <div className="flex-1">
               <FlowCanvas />
             </div>
-            {selectedNodeId && <PropertyPanel nodeId={selectedNodeId} />}
+            {selectedNodeId && propertyPanelOpen && <PropertyPanel nodeId={selectedNodeId} />}
             {jsonPreviewOpen && <JsonPreviewPanel />}
           </div>
         </div>

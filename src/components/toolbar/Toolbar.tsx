@@ -1,4 +1,4 @@
-import { LayoutGrid, ArrowUpDown, ArrowLeftRight, Maximize2, Braces } from 'lucide-react';
+import { LayoutGrid, ArrowUpDown, ArrowLeftRight, Maximize2, Braces, PanelLeft, PanelRight } from 'lucide-react';
 import { useReactFlow } from '@xyflow/react';
 import { useShallow } from 'zustand/react/shallow';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,10 @@ export function Toolbar() {
     metadata,
     toggleJsonPreview,
     jsonPreviewOpen,
+    paletteOpen,
+    togglePalette,
+    propertyPanelOpen,
+    togglePropertyPanel,
   } = useAppStore(
     useShallow((s) => ({
       autoLayout: s.autoLayout,
@@ -25,6 +29,10 @@ export function Toolbar() {
       metadata: s.metadata,
       toggleJsonPreview: s.toggleJsonPreview,
       jsonPreviewOpen: s.jsonPreviewOpen,
+      paletteOpen: s.paletteOpen,
+      togglePalette: s.togglePalette,
+      propertyPanelOpen: s.propertyPanelOpen,
+      togglePropertyPanel: s.togglePropertyPanel,
     }))
   );
 
@@ -34,6 +42,18 @@ export function Toolbar() {
 
   return (
     <div className="flex items-center gap-2 px-4 py-2 border-b">
+      <Button
+        variant={paletteOpen ? 'default' : 'outline'}
+        size="icon-sm"
+        onClick={() => togglePalette()}
+        aria-label="Toggle palette"
+      >
+        <PanelLeft />
+      </Button>
+
+      {/* Separator */}
+      <div className="w-px h-5 bg-border" />
+
       <ImportButton />
       <ExportButton />
 
@@ -74,6 +94,15 @@ export function Toolbar() {
       >
         <Braces data-icon="inline-start" />
         JSON
+      </Button>
+
+      <Button
+        variant={propertyPanelOpen ? 'default' : 'outline'}
+        size="icon-sm"
+        onClick={() => togglePropertyPanel()}
+        aria-label="Toggle property panel"
+      >
+        <PanelRight />
       </Button>
 
       {/* Separator */}

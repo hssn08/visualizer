@@ -7,4 +7,10 @@ export const createUiSlice: StateCreator<AppState, [], [], UiSlice> = (set) => (
   jsonPreviewOpen: false,
   toggleJsonPreview: () =>
     set((state) => ({ jsonPreviewOpen: !state.jsonPreviewOpen })),
+  paletteOpen: true,
+  togglePalette: () =>
+    set((state) => ({ paletteOpen: !state.paletteOpen })),
+  propertyPanelOpen: true,
+  togglePropertyPanel: () =>
+    set((state) => ({ propertyPanelOpen: !state.propertyPanelOpen })),
 });

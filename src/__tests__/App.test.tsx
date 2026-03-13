@@ -109,6 +109,56 @@ describe('App', () => {
     });
   });
 
+  describe('Collapsible panels', () => {
+    beforeEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+        paletteOpen: true,
+        propertyPanelOpen: true,
+      });
+    });
+
+    it('renders NodePalette when paletteOpen is true (default)', () => {
+      render(<App />);
+      // NodePalette contains "Add Step" text
+      expect(screen.getByText('Add Step')).toBeTruthy();
+    });
+
+    it('collapses palette when paletteOpen is toggled to false', () => {
+      useAppStore.setState({ paletteOpen: false });
+      render(<App />);
+      expect(screen.queryByText('Add Step')).toBeNull();
+    });
+
+    it('property panel collapses when propertyPanelOpen is toggled to false', () => {
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      useAppStore.getState().setSelectedNodeId('greeting');
+
+      // With propertyPanelOpen = true (default), panel shows
+      const { container, rerender } = render(<App />);
+      expect(container.querySelector('[data-testid="property-panel"]')).toBeTruthy();
+
+      // Toggle off
+      useAppStore.setState({ propertyPanelOpen: false });
+      rerender(<App />);
+      expect(container.querySelector('[data-testid="property-panel"]')).toBeNull();
+    });
+
+    it('property panel requires both selectedNodeId AND propertyPanelOpen', () => {
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      // Has selectedNodeId but propertyPanelOpen is false
+      useAppStore.setState({ selectedNodeId: 'greeting', propertyPanelOpen: false });
+
+      const { container } = render(<App />);
+      expect(container.querySelector('[data-testid="property-panel"]')).toBeNull();
+    });
+  });
+
   describe('Default flow loading (IMP-03)', () => {
     beforeEach(() => {
       useAppStore.setState({
