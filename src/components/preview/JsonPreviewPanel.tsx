@@ -36,7 +36,7 @@ export function JsonPreviewPanel() {
         </Button>
       </div>
       <ScrollArea className="flex-1 min-h-0">
-        <pre className="p-3 text-xs font-mono whitespace-pre overflow-x-auto">
+        <pre className="p-3 text-xs font-mono whitespace-pre overflow-x-auto bg-muted/50">
           {formatted}
         </pre>
       </ScrollArea>

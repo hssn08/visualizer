@@ -1,5 +1,6 @@
-import { JsonEditor } from 'json-edit-react';
+import { JsonEditor, githubDarkTheme, githubLightTheme } from 'json-edit-react';
 import { useAppStore } from '@/store';
+import { useTheme } from '@/components/theme-provider';
 
 interface JsonFallbackEditorProps {
   nodeId: string;
@@ -8,6 +9,9 @@ interface JsonFallbackEditorProps {
 
 export function JsonFallbackEditor({ nodeId, step }: JsonFallbackEditorProps) {
   const updateNodeData = useAppStore((s) => s.updateNodeData);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' ||
+    (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   return (
     <div
@@ -23,6 +27,7 @@ export function JsonFallbackEditor({ nodeId, step }: JsonFallbackEditorProps) {
         collapse={2}
         minWidth="100%"
         maxWidth="100%"
+        theme={isDark ? githubDarkTheme : githubLightTheme}
       />
     </div>
   );

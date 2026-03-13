@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { ReactFlow, Background, Controls, MiniMap, useReactFlow } from '@xyflow/react';
-import type { Node, Edge } from '@xyflow/react';
+import type { Node, Edge, ColorMode } from '@xyflow/react';
+import { useTheme } from '@/components/theme-provider';
 import { useShallow } from 'zustand/react/shallow';
 import { useAppStore } from '@/store';
 import { nodeTypes } from './nodeTypes';
@@ -37,6 +38,13 @@ export function FlowCanvas() {
 
   const { screenToFlowPosition } = useReactFlow();
   const { onBeforeDelete, deleteConfirm, confirmDelete, cancelDelete } = useNodeDelete();
+
+  // Resolve theme to a concrete colorMode for React Flow
+  const { theme } = useTheme();
+  const colorMode: ColorMode = theme === 'system'
+    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    : theme;
+
 
   // Drag pause/resume: capture pre-drag state so the entire drag is one undo step
   const preDragSnapshot = useRef<{ nodes: typeof nodes; edges: typeof edges } | null>(null);
@@ -156,6 +164,7 @@ export function FlowCanvas() {
         onPointerUp={onPointerUp}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        colorMode={colorMode}
         fitView
       >
         <Background />

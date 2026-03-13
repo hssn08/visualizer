@@ -78,10 +78,10 @@ export function StepNode({ id, data, selected }: NodeProps<StepNodeType>) {
     <div
       data-testid="step-node"
       className={cn(
-        'rounded-lg border-2 shadow-md p-3 min-w-[200px] max-w-[280px] bg-white',
+        'rounded-lg border-2 shadow-md p-3 min-w-[200px] max-w-[280px] bg-card',
         colors.border,
         colors.bg,
-        selected && 'ring-2 ring-blue-400 shadow-lg'
+        selected && 'ring-2 ring-ring shadow-lg'
       )}
     >
       {/* Target handle - one per node */}
@@ -100,22 +100,22 @@ export function StepNode({ id, data, selected }: NodeProps<StepNodeType>) {
       {/* Info badges */}
       <div className="flex flex-wrap gap-1 mt-1.5">
         {step.wait_for_response && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
             wait_for_response
           </span>
         )}
         {step.action && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
             {step.action as string}
           </span>
         )}
         {step.disposition && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
             disposition
           </span>
         )}
         {step.criticalstep && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
             critical
           </span>
         )}

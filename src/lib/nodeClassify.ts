@@ -37,8 +37,8 @@ export const ROLE_COLORS: Record<
   NodeRole,
   { border: string; bg: string; minimap: string }
 > = {
-  start: { border: 'border-green-500', bg: 'bg-green-50', minimap: '#22c55e' },
-  terminal: { border: 'border-red-500', bg: 'bg-red-50', minimap: '#ef4444' },
-  error: { border: 'border-orange-500', bg: 'bg-orange-50', minimap: '#f97316' },
-  normal: { border: 'border-blue-500', bg: 'bg-blue-50', minimap: '#3b82f6' },
+  start: { border: 'border-green-500', bg: 'bg-green-50 dark:bg-green-950', minimap: '#22c55e' },
+  terminal: { border: 'border-red-500', bg: 'bg-red-50 dark:bg-red-950', minimap: '#ef4444' },
+  error: { border: 'border-orange-500', bg: 'bg-orange-50 dark:bg-orange-950', minimap: '#f97316' },
+  normal: { border: 'border-blue-500', bg: 'bg-blue-50 dark:bg-blue-950', minimap: '#3b82f6' },
 };

@@ -113,7 +113,7 @@ describe('StepNode', () => {
     const { container } = renderStepNode({ selected: true });
     const nodeDiv = container.querySelector('[data-testid="step-node"]');
     expect(nodeDiv?.className).toContain('ring-2');
-    expect(nodeDiv?.className).toContain('ring-blue-400');
+    expect(nodeDiv?.className).toContain('ring-ring');
   });
 
   it('does not apply ring class when selected=false', () => {
