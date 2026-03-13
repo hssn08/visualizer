@@ -1,0 +1,105 @@
+{
+  "flow_name": "Medicare Enrollment",
+  "version": "2.1",
+  "voice_settings": {
+    "provider": "elevenlabs",
+    "voice_id": "abc123"
+  },
+  "steps": {
+    "greeting": {
+      "description": "Initial greeting",
+      "text": "Hello, thank you for calling Medicare Enrollment Services.",
+      "audio_file": "greeting.wav",
+      "wait_for_response": true,
+      "next": "verify_identity",
+      "timeout_next": "greeting_retry",
+      "timeout": 10
+    },
+    "greeting_retry": {
+      "description": "Retry greeting after timeout",
+      "text": "Are you still there? I can help you with Medicare enrollment.",
+      "wait_for_response": true,
+      "next": "verify_identity",
+      "timeout_next": "farewell",
+      "timeout": 15
+    },
+    "verify_identity": {
+      "description": "Verify caller identity",
+      "text": "Can I have your Medicare ID number?",
+      "wait_for_response": true,
+      "conditions": [
+        {
+          "condition": "id_verified",
+          "condition_description": "ID verified",
+          "next": "plan_options"
+        },
+        {
+          "condition": "id_not_found",
+          "condition_description": "ID not found",
+          "next": "manual_lookup"
+        }
+      ],
+      "no_match_next": "verify_retry",
+      "intent_detector_routes": {
+        "hangup_request": "farewell",
+        "speak_to_agent": "transfer_agent"
+      },
+      "max_clarification_retries": 3,
+      "criticalstep": true
+    },
+    "plan_options": {
+      "description": "Present plan options",
+      "text": "I can see your account. Let me go over your plan options.",
+      "next": "enrollment_confirm",
+      "pause_duration": 2
+    },
+    "manual_lookup": {
+      "description": "Manual identity lookup",
+      "text": "Let me look that up manually. Can you provide your full name and date of birth?",
+      "wait_for_response": true,
+      "next": "plan_options",
+      "timeout_next": "transfer_agent",
+      "timeout": 20
+    },
+    "verify_retry": {
+      "description": "Retry identity verification",
+      "text": "I didn't catch that. Could you repeat your Medicare ID?",
+      "wait_for_response": true,
+      "next": "verify_identity",
+      "timeout_next": "transfer_agent",
+      "timeout": 10
+    },
+    "enrollment_confirm": {
+      "description": "Confirm enrollment selection",
+      "text": "You've selected the Standard Plan. Shall I proceed with enrollment?",
+      "wait_for_response": true,
+      "conditions": [
+        {
+          "condition": "confirmed",
+          "condition_description": "Enrollment confirmed",
+          "next": "farewell"
+        },
+        {
+          "condition": "declined",
+          "condition_description": "Enrollment declined",
+          "next": "plan_options"
+        }
+      ],
+      "no_match_next": "enrollment_confirm",
+      "timeout_next": "transfer_agent",
+      "timeout": 15
+    },
+    "transfer_agent": {
+      "description": "Transfer to live agent",
+      "text": "Let me transfer you to an agent who can help further.",
+      "action": "transfer",
+      "disposition": "transferred"
+    },
+    "farewell": {
+      "description": "End call",
+      "text": "Thank you for calling Medicare Enrollment Services. Goodbye!",
+      "action": "hangup",
+      "disposition": "completed"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '@/App';
 import { useAppStore } from '@/store';
@@ -106,6 +106,64 @@ describe('App', () => {
       const { container } = render(<App />);
       const panel = container.querySelector('[data-testid="json-preview-panel"]');
       expect(panel).toBeTruthy();
+    });
+  });
+
+  describe('Default flow loading (IMP-03)', () => {
+    beforeEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+        jsonPreviewOpen: false,
+      });
+      useAppStore.temporal.getState().clear();
+    });
+
+    afterEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+        jsonPreviewOpen: false,
+      });
+      useAppStore.temporal.getState().clear();
+    });
+
+    it('loads default flow on initial render with empty store', () => {
+      render(<App />);
+      const { nodes } = useAppStore.getState();
+      expect(nodes.length).toBeGreaterThan(0);
+    });
+
+    it('populates metadata after default flow loads', () => {
+      render(<App />);
+      const { metadata } = useAppStore.getState();
+      expect(metadata).not.toBeNull();
+    });
+
+    it('clears temporal undo history after default flow load', () => {
+      render(<App />);
+      const { pastStates } = useAppStore.temporal.getState();
+      expect(pastStates.length).toBe(0);
+    });
+
+    it('does NOT reload default flow if metadata already exists', () => {
+      // Pre-import so metadata is set
+      useAppStore.getState().importJson(sampleFlow as Record<string, unknown>);
+      const nodesBefore = useAppStore.getState().nodes;
+
+      render(<App />);
+
+      const nodesAfter = useAppStore.getState().nodes;
+      // Nodes should remain the same (not re-imported)
+      expect(nodesAfter).toBe(nodesBefore);
     });
   });
 });

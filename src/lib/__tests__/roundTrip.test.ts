@@ -72,4 +72,32 @@ describe('Round-trip: jsonToFlow -> flowToJson', () => {
       speak_to_agent: 'transfer_agent',
     });
   });
+
+  it('import -> edit connection -> export -> re-import -> re-export is stable', () => {
+    // First import
+    const { nodes, edges, metadata } = jsonToFlow(sampleFlow as Record<string, unknown>);
+
+    // Edit: change greeting's next from verify_identity to farewell
+    const editedEdges = edges.map((e) => {
+      if (e.source === 'greeting' && e.data?.edgeType === 'next') {
+        return { ...e, target: 'farewell' };
+      }
+      return e;
+    });
+
+    // First export
+    const firstExport = flowToJson(nodes, editedEdges, metadata);
+
+    // Re-import the exported JSON
+    const round2 = jsonToFlow(firstExport as Record<string, unknown>);
+
+    // Re-export
+    const secondExport = flowToJson(round2.nodes, round2.edges, round2.metadata);
+
+    // Normalize both through JSON serialization
+    const firstNormalized = JSON.parse(JSON.stringify(firstExport));
+    const secondNormalized = JSON.parse(JSON.stringify(secondExport));
+
+    expect(secondNormalized).toEqual(firstNormalized);
+  });
 });

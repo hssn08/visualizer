@@ -6,8 +6,10 @@ import { JsonPreviewPanel } from '@/components/preview/JsonPreviewPanel';
 import { NodePalette } from '@/components/palette/NodePalette';
 import { useAppStore } from '@/store';
 import { useUndoRedo } from '@/hooks/useUndoRedo';
+import { useDefaultFlow } from '@/hooks/useDefaultFlow';
 
 export default function App() {
+  useDefaultFlow();
   useUndoRedo();
   const selectedNodeId = useAppStore((s) => s.selectedNodeId);
   const jsonPreviewOpen = useAppStore((s) => s.jsonPreviewOpen);
