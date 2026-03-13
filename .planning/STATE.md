@@ -2,25 +2,25 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-12T15:55:30.307Z"
+current_plan: 05-02 complete, 05-03 next
+status: in_progress
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-13T09:31:36.443Z"
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
+  total_plans: 13
+  completed_plans: 12
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 04-property-panel-toolbar (IN PROGRESS)
-**Current Plan:** Not started
-**Last Action:** Completed 04-02-PLAN.md (json-edit-react fallback editor in PropertyPanel)
-**Date:** 2026-03-12
+**Phase:** 05-graph-editing-undo-redo (IN PROGRESS)
+**Current Plan:** 05-02 complete, 05-03 next
+**Last Action:** Completed 05-02-PLAN.md (edge sync and node deletion)
+**Date:** 2026-03-13
 
 ## Active Context
 
@@ -57,8 +57,21 @@ progress:
 - JsonFallbackEditor: json-edit-react wrapper in PropertyPanel for full step data editing
 - PropertyPanel layout: Properties > Connections > JSON Editor (three sections with separators)
 - 167 tests passing (2 new JsonFallbackEditor tests with mocked json-edit-react)
+- NodePalette: left sidebar with 3 draggable templates (Basic/Decision/Terminal)
+- PaletteItem: pointer-event DnD via onPointerDown + setPointerCapture + shared module state
+- nodeTemplates: NODE_TEMPLATES, generateNodeId, createNodeFromTemplate
+- FlowCanvas: DnD drop handler using screenToFlowPosition + addNode
+- addNode store action appends node to nodes array
+- 204 tests passing (14 new palette tests + existing suite)
+- edgeSync utilities: deriveEdgeType, syncEdgeCreateToStep, syncEdgeDeleteToStep (pure functions)
+- onConnect replaced: creates typed edges (type:'conditional', ID: source->handle->target) + syncs step data
+- onEdgesDelete: clears connection fields (next, timeout_next, no_match_next) on source nodes
+- useNodeDelete hook: onBeforeDelete Promise pattern with AlertDialog confirmation
+- FlowCanvas: onBeforeDelete, onDelete, deleteKeyCode=['Backspace','Delete'] wired on ReactFlow
+- shadcn AlertDialog installed (base-ui/react)
+- 210 tests passing (16 edgeSync + 7 store edge handlers + 6 useNodeDelete + existing)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
-- 7 phases planned, 17 plans total
+- 7 phases planned, 13 plans total
 - 48 v1 requirements across 9 categories
 
 ## Key Decisions
@@ -95,6 +108,9 @@ progress:
 | Default json-edit-react styling | 2026-03-12 | Dark mode theming deferred to Phase 7 polish |
 | Mock json-edit-react in tests | 2026-03-12 | Complex internal rendering not suitable for jsdom |
 | Pass full step object to JsonEditor | 2026-03-12 | Library manages internal state; setData callback syncs to store |
+| Pointer-event DnD over HTML5 drag | 2026-03-13 | Avoids ghost image artifacts and coordinate system conflicts with React Flow |
+| screenToFlowPosition for drop coords | 2026-03-13 | Handles zoom, pan, DPI correctly without manual viewport math |
+| type_step_N ID pattern | 2026-03-13 | Unique IDs with collision avoidance via Set lookup |
 
 ## Blockers
 
@@ -112,12 +128,13 @@ None
 | 04-03 | 3min | 2 | 7 |
 | 04-01 | 5min | 2 | 21 |
 | 04-02 | 3min | 2 | 3 |
+| 05-01 | 5min | 2 | 6 |
 
 ## Last Session
 
-- **Stopped at:** Completed 04-02-PLAN.md
-- **Timestamp:** 2026-03-12T15:45:06Z
+- **Stopped at:** Completed 05-01-PLAN.md
+- **Timestamp:** 2026-03-13T09:28:30Z
 
 ## Next Step
 
-Phase 04 complete. All three plans (04-01 property panel, 04-02 json editor, 04-03 toolbar) done. Ready for Phase 05 (sidebar tree).
+Phase 05 Plan 01 complete (node palette + DnD). Ready for Plan 05-02 (edge sync, onConnect/onEdgesDelete step data sync) and Plan 05-03 (node deletion with confirmation, undo/redo keyboard shortcuts).

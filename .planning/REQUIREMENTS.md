@@ -53,8 +53,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Graph Editing
 
-- [ ] **GRAPH-01**: User can add new nodes via drag-and-drop from sidebar palette
-- [ ] **GRAPH-02**: Palette offers Basic Step, Decision Step, Terminal Step templates
+- [x] **GRAPH-01**: User can add new nodes via drag-and-drop from sidebar palette
+- [x] **GRAPH-02**: Palette offers Basic Step, Decision Step, Terminal Step templates
 - [ ] **GRAPH-03**: User can draw new edges by dragging between node handles
 - [ ] **GRAPH-04**: User can delete nodes with confirmation dialog
 - [ ] **GRAPH-05**: User can delete edges
@@ -149,8 +149,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-04 | Phase 4 | Complete |
 | EDIT-05 | Phase 4 | Complete |
 | EDIT-06 | Phase 4 | Complete |
-| GRAPH-01 | Phase 5 | Pending |
-| GRAPH-02 | Phase 5 | Pending |
+| GRAPH-01 | Phase 5 | Complete |
+| GRAPH-02 | Phase 5 | Complete |
 | GRAPH-03 | Phase 5 | Pending |
 | GRAPH-04 | Phase 5 | Pending |
 | GRAPH-05 | Phase 5 | Pending |
