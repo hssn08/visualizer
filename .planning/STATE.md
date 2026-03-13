@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 07-01
-status: in-progress
-stopped_at: Completed 07-01-PLAN.md
-last_updated: "2026-03-13T11:39:15Z"
+current_plan: Complete
+status: complete
+stopped_at: Completed 07-02-PLAN.md (all phases complete)
+last_updated: "2026-03-13T12:26:19.602Z"
 progress:
   total_phases: 7
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 17
-  completed_plans: 16
+  completed_plans: 17
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 07-dark-mode-polish (Plan 1 of 2 complete)
-**Current Plan:** 07-02
-**Last Action:** Completed 07-01-PLAN.md (dark mode + collapsible panels)
+**Phase:** 07-dark-mode-polish (Plan 2 of 2 complete -- ALL PHASES COMPLETE)
+**Current Plan:** Complete
+**Last Action:** Completed 07-02-PLAN.md (responsive layout + production build optimization)
 **Date:** 2026-03-13
 
 ## Active Context
@@ -90,8 +90,13 @@ progress:
 - UiSlice extended with paletteOpen/propertyPanelOpen booleans and toggle actions
 - PanelLeft/PanelRight toolbar toggle buttons control palette and property panel visibility
 - 254 tests passing (237 existing + 17 new dark mode and collapse tests)
+- useMediaQuery hook for responsive viewport detection (matchMedia API)
+- Panels auto-collapse below 768px viewport width (palette + property panel)
+- Toolbar flex-wrap for graceful narrow-screen wrapping
+- Vite vendor chunk splitting: react-flow, json-editor, vendor (eliminates 693KB warning)
+- Production build clean with no errors or chunk size warnings
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
-- 7 phases planned, 17 plans total
+- 7 phases planned, 17 plans total -- ALL COMPLETE
 - 48 v1 requirements across 9 categories
 
 ## Key Decisions
@@ -146,6 +151,9 @@ progress:
 | bg-card CSS variable for StepNode | 2026-03-13 | Auto-switches with dark mode via existing CSS variable infrastructure |
 | ring-ring CSS variable for selection | 2026-03-13 | Theme-aware selection ring instead of hardcoded ring-blue-400 |
 | Conditional rendering for collapsed panels | 2026-03-13 | Unmount when collapsed; store selectedNodeId ensures correct state on re-mount |
+| Auto-collapse only, never auto-expand | 2026-03-13 | Viewport shrink collapses panels; grow respects user's manual toggle preference |
+| Three vendor chunk groups | 2026-03-13 | react-flow, json-editor, vendor splits keep each chunk under 500KB |
+| matchMedia change event for viewport tracking | 2026-03-13 | Efficient reactive updates without resize polling |
 
 ## Blockers
 
@@ -169,12 +177,13 @@ None
 | 06-01 | 4min | 2 | 6 |
 | 06-02 | 2min | 1 | 5 |
 | 07-01 | 5min | 3 | 20 |
+| 07-02 | 3min | 2 | 7 |
 
 ## Last Session
 
-- **Stopped at:** Completed 07-01-PLAN.md
-- **Timestamp:** 2026-03-13T11:39:15Z
+- **Stopped at:** Completed 07-02-PLAN.md (all phases complete)
+- **Timestamp:** 2026-03-13T12:09:00Z
 
 ## Next Step
 
-Phase 07 plan 1 complete (1 of 2 plans done). All 254 tests pass. Ready for 07-02-PLAN.md.
+All 7 phases and 17 plans complete. v1 milestone achieved. Project ready for use.

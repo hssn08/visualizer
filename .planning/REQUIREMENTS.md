@@ -81,7 +81,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **UI-03**: Keyboard shortcut: Delete/Backspace removes selected node
 - [ ] **UI-04**: Keyboard shortcut: Ctrl+Z undo, Ctrl+Shift+Z redo
 - [x] **UI-05**: Property panel and node palette are collapsible
-- [ ] **UI-06**: Responsive layout adapts to smaller screens
+- [x] **UI-06**: Responsive layout adapts to smaller screens
 
 ## v2 Requirements
 
@@ -168,7 +168,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UI-03 | Phase 5 | Complete |
 | UI-04 | Phase 5 | Pending |
 | UI-05 | Phase 7 | Complete |
-| UI-06 | Phase 7 | Pending |
+| UI-06 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 48 total

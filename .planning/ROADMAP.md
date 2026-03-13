@@ -12,7 +12,7 @@ Build a client-side visual editor for JSON call flow scripts in 7 phases. Start 
 - [x] **Phase 4: Property Panel & Toolbar** - Right sidebar with structured fields, JSON fallback editor, top toolbar
 - [ ] **Phase 5: Graph Editing & Undo/Redo** - Node palette, add/delete nodes, draw/delete edges, Zundo undo/redo, keyboard shortcuts
 - [ ] **Phase 6: Export & Default Flow** - Lossless JSON export, live JSON preview, default Medicare test flow on first visit
-- [ ] **Phase 7: Dark Mode & Polish** - Dark mode, collapsible panels, responsive layout, final integration testing
+- [x] **Phase 7: Dark Mode & Polish** - Dark mode, collapsible panels, responsive layout, final integration testing (completed 2026-03-13)
 
 ## Phase Details
 
@@ -133,8 +133,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Dark mode with shadcn ThemeProvider, ModeToggle, dark-mode-aware components, collapsible panels (UI-01, UI-05)
-- [ ] 07-02-PLAN.md — Responsive layout with useMediaQuery auto-collapse, production build optimization (UI-06)
+- [x] 07-01-PLAN.md — Dark mode with shadcn ThemeProvider, ModeToggle, dark-mode-aware components, collapsible panels (UI-01, UI-05)
+- [x] 07-02-PLAN.md — Responsive layout with useMediaQuery auto-collapse, production build optimization (UI-06)
 
 ## Progress
 
@@ -146,4 +146,4 @@ Plans:
 | 4. Property Panel & Toolbar | 3/3 | Complete | 2026-03-12 |
 | 5. Graph Editing & Undo/Redo | 3/3 | Complete | 2026-03-13 |
 | 6. Export & Default Flow | 0/2 | Not started | - |
-| 7. Dark Mode & Polish | 0/2 | Not started | - |
+| 7. Dark Mode & Polish | 2/2 | Complete   | 2026-03-13 |
