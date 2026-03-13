@@ -22,7 +22,11 @@ export function ExportButton() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'flow.json';
+    const flowName = metadata.wrapperFields.flow_name as string | undefined;
+    const safeName = (flowName ?? 'flow')
+      .replace(/[^a-zA-Z0-9_-]/g, '_')
+      .toLowerCase();
+    a.download = `${safeName}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
