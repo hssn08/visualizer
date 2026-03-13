@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-03-13T10:54:04.150Z"
+current_plan: 07-01
+status: in-progress
+stopped_at: Completed 07-01-PLAN.md
+last_updated: "2026-03-13T11:39:15Z"
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 15
-  completed_plans: 15
+  total_plans: 17
+  completed_plans: 16
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 06-export-default-flow (Plan 2 of 2 complete - phase done)
-**Current Plan:** Not started
-**Last Action:** Completed 06-02-PLAN.md (default flow loading)
+**Phase:** 07-dark-mode-polish (Plan 1 of 2 complete)
+**Current Plan:** 07-02
+**Last Action:** Completed 07-01-PLAN.md (dark mode + collapsible panels)
 **Date:** 2026-03-13
 
 ## Active Context
@@ -80,8 +80,18 @@ progress:
 - useDefaultFlow hook: loads Medicare test flow on first visit, clears undo history
 - Default flow bundled as src/data/defaultFlow.json (static import, no async fetch)
 - 237 tests passing (5 new default flow + round-trip edit tests)
+- ThemeProvider context wrapping entire app with localStorage persistence (key: "vite-ui-theme")
+- ModeToggle dropdown in toolbar with Light/Dark/System options
+- ReactFlow colorMode prop auto-switches Background, Controls, MiniMap for dark mode
+- StepNode uses bg-card + dark: variants for role colors and info badges
+- ConditionalEdge uses EDGE_STYLES_DARK for brighter stroke colors in dark mode
+- ConditionalEdge label badges use dark: variant Tailwind classes
+- JsonFallbackEditor swaps to githubDarkTheme in dark mode
+- UiSlice extended with paletteOpen/propertyPanelOpen booleans and toggle actions
+- PanelLeft/PanelRight toolbar toggle buttons control palette and property panel visibility
+- 254 tests passing (237 existing + 17 new dark mode and collapse tests)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
-- 7 phases planned, 13 plans total
+- 7 phases planned, 17 plans total
 - 48 v1 requirements across 9 categories
 
 ## Key Decisions
@@ -131,6 +141,11 @@ progress:
 | Static JSON import for default flow | 2026-03-13 | Bundled with app, no async fetch needed for embedded data |
 | metadata null check for default load guard | 2026-03-13 | Skip default load if user already imported a flow |
 | temporal.clear() after default importJson | 2026-03-13 | Prevents undo-to-blank on first Ctrl+Z after default load |
+| render prop for base-ui trigger composition | 2026-03-13 | base-ui DropdownMenuTrigger uses render prop, not asChild like Radix |
+| Conditional JS for edge stroke colors | 2026-03-13 | EDGE_STYLES_DARK parallel object simpler than CSS variables for 5 inline SVG strokes |
+| bg-card CSS variable for StepNode | 2026-03-13 | Auto-switches with dark mode via existing CSS variable infrastructure |
+| ring-ring CSS variable for selection | 2026-03-13 | Theme-aware selection ring instead of hardcoded ring-blue-400 |
+| Conditional rendering for collapsed panels | 2026-03-13 | Unmount when collapsed; store selectedNodeId ensures correct state on re-mount |
 
 ## Blockers
 
@@ -153,12 +168,13 @@ None
 | 05-03 | 8min | 2 | 5 |
 | 06-01 | 4min | 2 | 6 |
 | 06-02 | 2min | 1 | 5 |
+| 07-01 | 5min | 3 | 20 |
 
 ## Last Session
 
-- **Stopped at:** Completed 06-02-PLAN.md
-- **Timestamp:** 2026-03-13T10:50:14Z
+- **Stopped at:** Completed 07-01-PLAN.md
+- **Timestamp:** 2026-03-13T11:39:15Z
 
 ## Next Step
 
-Phase 06 complete (2 of 2 plans done). All 237 tests pass. Ready for Phase 07.
+Phase 07 plan 1 complete (1 of 2 plans done). All 254 tests pass. Ready for 07-02-PLAN.md.

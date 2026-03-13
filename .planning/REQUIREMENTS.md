@@ -76,11 +76,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### UI & Polish
 
-- [ ] **UI-01**: Dark mode support via shadcn theme
+- [x] **UI-01**: Dark mode support via shadcn theme
 - [x] **UI-02**: Top toolbar with Import, Export, Auto Layout, Layout Direction, Zoom to Fit, JSON Preview toggle
 - [x] **UI-03**: Keyboard shortcut: Delete/Backspace removes selected node
 - [ ] **UI-04**: Keyboard shortcut: Ctrl+Z undo, Ctrl+Shift+Z redo
-- [ ] **UI-05**: Property panel and node palette are collapsible
+- [x] **UI-05**: Property panel and node palette are collapsible
 - [ ] **UI-06**: Responsive layout adapts to smaller screens
 
 ## v2 Requirements
@@ -163,11 +163,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-02 | Phase 6 | Complete |
 | EXP-03 | Phase 6 | Complete |
 | EXP-04 | Phase 6 | Complete |
-| UI-01 | Phase 7 | Pending |
+| UI-01 | Phase 7 | Complete |
 | UI-02 | Phase 4 | Complete |
 | UI-03 | Phase 5 | Complete |
 | UI-04 | Phase 5 | Pending |
-| UI-05 | Phase 7 | Pending |
+| UI-05 | Phase 7 | Complete |
 | UI-06 | Phase 7 | Pending |
 
 **Coverage:**
