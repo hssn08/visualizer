@@ -2,24 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-stopped_at: Completed 05-03-PLAN.md (all Phase 05 plans done)
-last_updated: "2026-03-13T10:23:06.340Z"
+current_plan: Plan 1 of 2 in Phase 06
+status: in-progress
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-13T10:44:05.000Z"
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 15
+  completed_plans: 14
 ---
 
 # Project State: Flow Editor
 
 ## Current Status
 
-**Phase:** 05-graph-editing-undo-redo (ALL PLANS COMPLETE)
-**Current Plan:** Not started
-**Last Action:** Completed 05-03-PLAN.md (undo/redo keyboard shortcuts + drag throttle)
+**Phase:** 06-export-default-flow (Plan 1 of 2 complete)
+**Current Plan:** Plan 1 of 2 in Phase 06
+**Last Action:** Completed 06-01-PLAN.md (export enhancement + JSON preview panel)
 **Date:** 2026-03-13
 
 ## Active Context
@@ -73,6 +73,10 @@ progress:
 - useUndoRedo hook: global Ctrl/Cmd+Z undo, Ctrl/Cmd+Shift+Z redo wired at App level
 - Drag pause/snapshot/resume: onNodeDragStart captures state + pauses temporal, onNodeDragStop resumes + pushes snapshot to pastStates
 - 219 tests passing (6 useUndoRedo + 3 temporal store + previous suite)
+- ExportButton uses dynamic filename from flow_name with sanitization and fallback
+- JsonPreviewPanel component: live formatted JSON via flowToJson, close button, scroll area
+- App layout: NodePalette | FlowCanvas | PropertyPanel? | JsonPreviewPanel?
+- 232 tests passing (6 ExportButton + 5 JsonPreviewPanel + 2 App integration + previous suite)
 - Stack: Vite 7 + React 19 + TypeScript + @xyflow/react 12.10 + Zustand 5 + Zundo + Tailwind CSS v4 + shadcn/ui + @dagrejs/dagre 2.0 + json-edit-react 1.29 + lucide-react
 - 7 phases planned, 13 plans total
 - 48 v1 requirements across 9 categories
@@ -119,6 +123,8 @@ progress:
 | handleDelete syncs cascading edge deletions | 2026-03-13 | React Flow removes connected edges on node delete; must sync step data |
 | Pause/snapshot/resume for drag undo | 2026-03-13 | Zundo resume() doesn't auto-create entries; manually push pre-drag snapshot to pastStates |
 | Reference equality guard on drag stop | 2026-03-13 | Skip no-op undo entries when click fires drag events without position change |
+| Sanitize flow_name for export filename | 2026-03-13 | Replace non-alphanumeric with underscore + lowercase for safe cross-platform filenames |
+| Post-render createElement spy pattern | 2026-03-13 | Mocking createElement before render breaks React; spy only during export click handler |
 
 ## Blockers
 
@@ -139,12 +145,13 @@ None
 | 05-01 | 5min | 2 | 6 |
 | 05-02 | 6min | 2 | 9 |
 | 05-03 | 8min | 2 | 5 |
+| 06-01 | 4min | 2 | 6 |
 
 ## Last Session
 
-- **Stopped at:** Completed 05-03-PLAN.md (all Phase 05 plans done)
-- **Timestamp:** 2026-03-13T11:20:00Z
+- **Stopped at:** Completed 06-01-PLAN.md
+- **Timestamp:** 2026-03-13T10:44:05Z
 
 ## Next Step
 
-Phase 05 all plans complete (3/3). Ready for verification.
+Phase 06 plan 1 of 2 complete. Ready for 06-02 plan execution.

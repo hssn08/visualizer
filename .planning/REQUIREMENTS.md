@@ -69,10 +69,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Export
 
-- [ ] **EXP-01**: User can export modified JSON via download button
-- [ ] **EXP-02**: Exported JSON preserves all original fields not visually represented
-- [ ] **EXP-03**: Exported JSON updates connection fields (next, conditions, etc.) based on current edges
-- [ ] **EXP-04**: Live JSON preview panel shows current state (toggleable)
+- [x] **EXP-01**: User can export modified JSON via download button
+- [x] **EXP-02**: Exported JSON preserves all original fields not visually represented
+- [x] **EXP-03**: Exported JSON updates connection fields (next, conditions, etc.) based on current edges
+- [x] **EXP-04**: Live JSON preview panel shows current state (toggleable)
 
 ### UI & Polish
 
@@ -159,10 +159,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UNDO-01 | Phase 5 | Pending |
 | UNDO-02 | Phase 5 | Pending |
 | UNDO-03 | Phase 5 | Pending |
-| EXP-01 | Phase 6 | Pending |
-| EXP-02 | Phase 6 | Pending |
-| EXP-03 | Phase 6 | Pending |
-| EXP-04 | Phase 6 | Pending |
+| EXP-01 | Phase 6 | Complete |
+| EXP-02 | Phase 6 | Complete |
+| EXP-03 | Phase 6 | Complete |
+| EXP-04 | Phase 6 | Complete |
 | UI-01 | Phase 7 | Pending |
 | UI-02 | Phase 4 | Complete |
 | UI-03 | Phase 5 | Complete |
