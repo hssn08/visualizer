@@ -2,6 +2,7 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { FlowCanvas } from '@/components/canvas/FlowCanvas';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { PropertyPanel } from '@/components/panel/PropertyPanel';
+import { NodePalette } from '@/components/palette/NodePalette';
 import { useAppStore } from '@/store';
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
       <div className="h-screen w-screen flex flex-col">
         <Toolbar />
         <div className="flex flex-1 min-h-0">
-          {/* Sidebar placeholder - Phase 5 */}
+          <NodePalette />
           <div className="flex-1">
             <FlowCanvas />
           </div>

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import {
   NODE_TEMPLATES,
@@ -6,6 +6,7 @@ import {
   createNodeFromTemplate,
 } from '../nodeTemplates';
 import { NodePalette } from '../NodePalette';
+import { useAppStore } from '@/store';
 
 describe('NODE_TEMPLATES', () => {
   it('has exactly 3 entries with types basic, decision, terminal', () => {
@@ -98,5 +99,55 @@ describe('NodePalette', () => {
     expect(screen.getByText('Basic Step')).toBeDefined();
     expect(screen.getByText('Decision Step')).toBeDefined();
     expect(screen.getByText('Terminal Step')).toBeDefined();
+  });
+});
+
+describe('addNode store action', () => {
+  beforeEach(() => {
+    useAppStore.setState({ nodes: [], edges: [] });
+  });
+
+  it('appends a node to the nodes array', () => {
+    const node = createNodeFromTemplate(
+      NODE_TEMPLATES[0],
+      { x: 50, y: 75 },
+      new Set()
+    );
+    useAppStore.getState().addNode(node);
+    const nodes = useAppStore.getState().nodes;
+    expect(nodes).toHaveLength(1);
+    expect(nodes[0].id).toBe(node.id);
+  });
+
+  it('addNode with createNodeFromTemplate node results in correct store state', () => {
+    const template = NODE_TEMPLATES[1]; // Decision
+    const node = createNodeFromTemplate(template, { x: 200, y: 300 }, new Set());
+    useAppStore.getState().addNode(node);
+    const stored = useAppStore.getState().nodes[0];
+    expect(stored.type).toBe('step');
+    expect((stored.data as { step: Record<string, unknown> }).step).toEqual({
+      description: '',
+      text: '',
+      wait_for_response: true,
+      conditions: [],
+    });
+  });
+
+  it('GRAPH-01 creates node contract: template -> createNodeFromTemplate -> addNode -> store has correct node', () => {
+    const template = NODE_TEMPLATES[0]; // Basic
+    const position = { x: 100, y: 200 };
+    const node = createNodeFromTemplate(template, position, new Set());
+    useAppStore.getState().addNode(node);
+
+    const stored = useAppStore.getState().nodes[0];
+    expect(stored.type).toBe('step');
+    expect((stored.data as { label: string }).label).toBe('Basic Step');
+    expect((stored.data as { step: Record<string, unknown> }).step).toEqual({
+      description: '',
+      text: '',
+      next: '',
+    });
+    expect((stored.data as { isFirstNode: boolean }).isFirstNode).toBe(false);
+    expect(stored.position).toEqual({ x: 100, y: 200 });
   });
 });
