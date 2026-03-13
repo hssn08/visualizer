@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeAll, beforeEach, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeAll, beforeEach, afterEach } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
 import App from '@/App';
 import { useAppStore } from '@/store';
 import sampleFlow from '@/lib/__tests__/fixtures/sampleFlow.json';
@@ -156,6 +156,78 @@ describe('App', () => {
 
       const { container } = render(<App />);
       expect(container.querySelector('[data-testid="property-panel"]')).toBeNull();
+    });
+  });
+
+  describe('Responsive auto-collapse', () => {
+    beforeEach(() => {
+      useAppStore.setState({
+        nodes: [],
+        edges: [],
+        rawJson: null,
+        metadata: null,
+        selectedNodeId: null,
+        layoutDirection: 'TB',
+        paletteOpen: true,
+        propertyPanelOpen: true,
+      });
+    });
+
+    it('collapses palette on narrow viewport (below 768px)', () => {
+      // Mock matchMedia to return false for min-width: 768px (narrow viewport)
+      const listeners: ((e: MediaQueryListEvent) => void)[] = [];
+      vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+        matches: query === '(min-width: 768px)' ? false : false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn((_: string, handler: (e: MediaQueryListEvent) => void) => {
+          listeners.push(handler);
+        }),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }) as unknown as MediaQueryList);
+
+      render(<App />);
+
+      // Palette should be auto-collapsed on narrow viewport
+      expect(useAppStore.getState().paletteOpen).toBe(false);
+    });
+
+    it('does not force panels open when viewport grows above 768px', () => {
+      // Start with narrow viewport
+      let currentMatches = false;
+      const changeListeners: ((e: MediaQueryListEvent) => void)[] = [];
+      vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+        matches: query === '(min-width: 768px)' ? currentMatches : false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn((event: string, handler: (e: MediaQueryListEvent) => void) => {
+          if (event === 'change') changeListeners.push(handler);
+        }),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }) as unknown as MediaQueryList);
+
+      render(<App />);
+
+      // After initial collapse, manually check state
+      const stateAfterNarrow = useAppStore.getState();
+      expect(stateAfterNarrow.paletteOpen).toBe(false);
+
+      // Simulate viewport growing
+      currentMatches = true;
+      act(() => {
+        for (const handler of changeListeners) {
+          handler({ matches: true } as MediaQueryListEvent);
+        }
+      });
+
+      // Panels should NOT be forced open
+      expect(useAppStore.getState().paletteOpen).toBe(false);
     });
   });
 
